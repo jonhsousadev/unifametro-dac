@@ -1,0 +1,222 @@
+[
+  {
+    "pergunta": "Qual tag HTML5 é utilizada para criar um formulário?",
+    "opcoes": ["<form>", "<input>", "<fieldset>", "<button>"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual elemento HTML5 representa uma seção independente de conteúdo?",
+    "opcoes": ["<div>", "<section>", "<span>", "<aside>"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual atributo HTML5 define um campo obrigatório em um formulário?",
+    "opcoes": ["required", "mandatory", "obrigatorio", "validate"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual tag HTML5 é usada para incorporar um vídeo?",
+    "opcoes": ["<media>", "<movie>", "<video>", "<embed>"],
+    "respostaCorreta": 2
+  },
+  {
+    "pergunta": "Qual elemento HTML5 representa conteúdo secundário relacionado ao conteúdo principal?",
+    "opcoes": ["<header>", "<footer>", "<main>", "<aside>"],
+    "respostaCorreta": 3
+  },
+  {
+    "pergunta": "Qual tag HTML5 é usada para criar uma lista de navegação?",
+    "opcoes": ["<menu>", "<nav>", "<list>", "<links>"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual atributo HTML5 permite definir um placeholder em um campo de texto?",
+    "opcoes": ["placeholder", "hint", "label", "value"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual elemento HTML5 representa o cabeçalho de uma seção ou página?",
+    "opcoes": ["<head>", "<top>", "<header>", "<title>"],
+    "respostaCorreta": 2
+  },
+  {
+    "pergunta": "Qual tag HTML5 é utilizada para criar uma tabela?",
+    "opcoes": ["<grid>", "<table>", "<data>", "<matrix>"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual atributo HTML5 especifica o tipo de entrada de um campo <input>?",
+    "opcoes": ["type", "kind", "format", "inputtype"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual elemento HTML5 é usado para agrupar campos de um formulário?",
+    "opcoes": ["<group>", "<fieldset>", "<formgroup>", "<section>"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual tag HTML5 representa o rodapé de uma seção ou página?",
+    "opcoes": ["<bottom>", "<end>", "<footer>", "<closing>"],
+    "respostaCorreta": 2
+  },
+  {
+    "pergunta": "Qual atributo HTML5 permite que o navegador valide o formato de um e-mail?",
+    "opcoes": ["type='email'", "format='email'", "validate='email'", "pattern='email'"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual elemento HTML5 é usado para desenhar gráficos via JavaScript?",
+    "opcoes": ["<graphics>", "<canvas>", "<draw>", "<svg>"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual tag HTML5 embute conteúdo de outro site?",
+    "opcoes": ["<embed>", "<iframe>", "<object>", "<link>"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No CSS3, qual propriedade define a opacidade de um elemento?",
+    "opcoes": ["visibility", "alpha", "opacity", "transparency"],
+    "respostaCorreta": 2
+  },
+  {
+    "pergunta": "Qual propriedade CSS3 arredonda os cantos de um elemento?",
+    "opcoes": ["corner-radius", "border-radius", "rounded-corners", "round"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No CSS3, qual propriedade adiciona sombra a um elemento?",
+    "opcoes": ["shadow", "box-shadow", "element-shadow", "drop-shadow"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual propriedade CSS3 define o espaçamento entre letras?",
+    "opcoes": ["letter-spacing", "text-spacing", "char-spacing", "font-spacing"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "No CSS3, qual propriedade permite criar transições suaves?",
+    "opcoes": ["animate", "transition", "transform", "movement"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual unidade CSS3 é relativa ao tamanho da fonte do elemento pai?",
+    "opcoes": ["px", "em", "pt", "cm"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No CSS3, qual propriedade define o modelo de caixa (box model)?",
+    "opcoes": ["box-model", "box-sizing", "layout-model", "display-box"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual propriedade CSS3 permite centralizar um elemento horizontalmente?",
+    "opcoes": ["margin: auto", "center: true", "align: center", "position: center"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "No CSS3, qual função cria um gradiente linear?",
+    "opcoes": ["linear-gradient()", "gradient()", "create-gradient()", "bg-gradient()"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual propriedade CSS3 muda a posição de um elemento com transição?",
+    "opcoes": ["position", "transform", "translate", "movement"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No CSS3, qual propriedade cria um container flexível?",
+    "opcoes": ["display: block", "display: flex", "display: grid", "display: inline"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual propriedade CSS3 define o alinhamento dos itens dentro de um flex container no eixo transversal?",
+    "opcoes": ["justify-content", "align-items", "flex-align", "cross-align"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No CSS3, qual propriedade cria um layout baseado em grid?",
+    "opcoes": ["display: grid", "grid-layout", "display: table", "grid-template"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual pseudo-classe CSS3 seleciona o primeiro filho de um elemento?",
+    "opcoes": [":first-child", ":first", ":nth-child(1)", ":start"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "No CSS3, qual propriedade controla a quebra de linha em texto?",
+    "opcoes": ["word-wrap", "overflow-wrap", "word-break", "Todas as anteriores"],
+    "respostaCorreta": 3
+  },
+  {
+    "pergunta": "No JavaScript, qual método seleciona um elemento pelo seu ID?",
+    "opcoes": ["document.querySelector()", "document.getElementById()", "document.getElement()", "document.findById()"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual método JavaScript converte uma string JSON em um objeto?",
+    "opcoes": ["JSON.stringify()", "JSON.parse()", "JSON.convert()", "JSON.toObject()"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No JavaScript, qual keyword declara uma variável com escopo de bloco?",
+    "opcoes": ["var", "let", "define", "constante"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual método JavaScript adiciona um elemento ao final de um array?",
+    "opcoes": ["append()", "add()", "push()", "insert()"],
+    "respostaCorreta": 2
+  },
+  {
+    "pergunta": "No JavaScript, qual função executa um código após um tempo determinado?",
+    "opcoes": ["setInterval()", "setTimeout()", "wait()", "delay()"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual método JavaScript seleciona todos os elementos com uma classe específica?",
+    "opcoes": ["document.getElementById()", "document.getElementsByClassName()", "document.querySelector()", "document.selectAll()"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No JavaScript, o que o operador === faz?",
+    "opcoes": ["Atribuição", "Comparação com coerção de tipo", "Comparação estrita sem coerção", "Igualdade de referência"],
+    "respostaCorreta": 2
+  },
+  {
+    "pergunta": "Qual método JavaScript transforma um objeto em uma string JSON?",
+    "opcoes": ["JSON.parse()", "JSON.stringify()", "JSON.stringify() e JSON.parse()", "toString()"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "No JavaScript, qual keyword define uma função asíncrona?",
+    "opcoes": ["async", "await", "promise", "defer"],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual método JavaScript percorre cada elemento de um array executando uma função?",
+    "opcoes": ["map()", "forEach()", "loop()", "each()"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual comando Git inicializa um novo repositório local?",
+    "opcoes": ["git start", "git init", "git new", "git create"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual comando Git adiciona todas as alterações para serem commitadas?",
+    "opcoes": ["git add .", "git commit .", "git push .", "git save ."],
+    "respostaCorreta": 0
+  },
+  {
+    "pergunta": "Qual comando Git clona um repositório remoto?",
+    "opcoes": ["git pull", "git clone", "git fetch", "git copy"],
+    "respostaCorreta": 1
+  },
+  {
+    "pergunta": "Qual comando Git verifica o status do repositório?",
+    "opcoes": ["git info", "git status", "git check", "git log"],
+    "respostaCorreta": 1
+  }
+]

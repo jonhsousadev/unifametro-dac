@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">UNIFAMETRO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #020617;
+      color: #94a3b8;
+      font-family: 'Urbanist', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 60px 24px;
+      flex: 1;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .header .tag {
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--cor);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1.1;
+      font-size: 48px;
+    }
+
+    .header h1 span {
+      color: var(--cor);
+    }
+
+    .header .divider-line {
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cor), #f97316);
+      margin: 32px auto;
+      border-radius: 2px;
+    }
+
+    .header p {
+      color: #64748b;
+      font-size: 18px;
+    }
+
+    .aulas {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .aula-group {
+      display: flex;
+      flex-direction: column;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .aula-group:hover {
+      border-color: var(--cor);
+      transform: translateY(-2px);
+    }
+
+    .aula-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: transparent;
+      border: none;
+      padding: 24px 28px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .aula-card:hover {
+      background: var(--cor-bg-hover);
+    }
+
+    .aula-link {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .aula-card + .pratica-card {
+      border-top: 1px solid #1e293b;
+    }
+
+    .pratica-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: transparent;
+      border: none;
+      padding: 16px 28px 16px 44px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .pratica-card:hover {
+      background: var(--cor-bg-hover);
+    }
+
+    .pratica-card .pratica-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-right: 8px;
+    }
+
+    .aula-card .number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--cor);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .aula-card .info {
+      flex: 1;
+    }
+
+    .aula-card .info h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .aula-card .info p {
+      font-size: 15px;
+      color: #64748b;
+    }
+
+    .aula-card .arrow {
+      color: #334155;
+      font-size: 20px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .aula-card:hover .arrow {
+      color: var(--cor);
+      transform: translateX(4px);
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #64748b;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .download-btn:hover {
+      background: var(--cor);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .download-btn i {
+      font-size: 16px;
+    }
+
+    .qr-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #64748b;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .qr-btn:hover {
+      background: var(--cor);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .qr-btn i {
+      font-size: 16px;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal h3 {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .modal .url-label {
+      color: #64748b;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .modal .url-display {
+      color: #e2e8f0;
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      word-break: break-all;
+      background: #1e293b;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      line-height: 1.5;
+    }
+
+    .modal .qr-area {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .modal .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal .close-btn:hover {
+      color: #fff;
+    }
+
+    .footer {
+      border-top: 1px solid #1e293b;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer .divider-line {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cor), #f97316);
+      margin: 0 auto 24px;
+      border-radius: 2px;
+    }
+
+    .footer .contact {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer .contact a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer .contact a:hover {
+      color: var(--cor);
+    }
+
+    .footer .contact a i {
+      margin-right: 8px;
+    }
+
+    .footer .copy {
+      color: #334155;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 { font-size: 32px; }
+      .aula-card { padding: 16px 18px; gap: 14px; }
+      .aula-card .number { font-size: 22px; min-width: 44px; }
+      .aula-card .info h2 { font-size: 17px; }
+      .pratica-card { padding: 12px 18px 12px 36px; }
+      .pratica-card .number { font-size: 12px; min-width: 36px; }
+      .pratica-card .info h2 { font-size: 14px; }
+      .footer .contact { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="tag" id="tag"></div>
+      <h1 id="title"></h1>
+      <div class="divider-line"></div>
+      <p id="tagline"></p>
+    </div>
+
+    <div class="aulas" id="aulas"></div>
+  </div>
+
+  <div class="modal-overlay" id="qr-modal">
+    <div class="modal">
+      <button class="close-btn" onclick="fecharModal()"><i class="fas fa-times"></i></button>
+      <h3 id="qr-title">QR Code</h3>
+      <div class="qr-area"><div id="qr-code"></div></div>
+      <div class="url-label">Endereço completo</div>
+      <div class="url-display" id="qr-url"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="divider-line"></div>
+    <div class="contact">
+      <a href="mailto:jonh.sousa@professor.unifametro.edu.br">
+        <i class="fas fa-envelope"></i>jonh.sousa@professor.unifametro.edu.br
+      </a>
+      <a href="https://jonhsousa.com.br" target="_blank">
+        <i class="fas fa-globe"></i>jonhsousa.com.br
+      </a>
+    </div>
+    <div class="copy">&copy; 2026 Prof. Jonh Sousa - UNIFAMETRO</div>
+  </footer>
+
+  <script>
+    let qrInstance = null;
+
+    function abrirModal(url, titulo) {
+      const modal = document.getElementById('qr-modal');
+      const qrDiv = document.getElementById('qr-code');
+      const qrUrl = document.getElementById('qr-url');
+      const qrTitle = document.getElementById('qr-title');
+
+      qrDiv.innerHTML = '';
+      qrTitle.textContent = titulo;
+
+      const fullUrl = new URL(url, window.location.href).href;
+      qrUrl.textContent = fullUrl;
+
+      qrInstance = new QRCode(qrDiv, {
+        text: fullUrl,
+        width: 180,
+        height: 180,
+        colorDark: '#0f172a',
+        colorLight: '#ffffff'
+      });
+
+      modal.classList.add('active');
+    }
+
+    function fecharModal() {
+      document.getElementById('qr-modal').classList.remove('active');
+    }
+
+    document.getElementById('qr-modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) fecharModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModal();
+    });
+
+    async function init() {
+      const res = await fetch('data.json');
+      const data = await res.json();
+      const { curso, aulas } = data;
+
+      const root = document.documentElement;
+      root.style.setProperty('--cor', curso.cor);
+      root.style.setProperty('--cor-bg-hover', curso.cor + '08');
+
+      document.getElementById('page-title').textContent = curso.nome + ' - ' + curso.faculdade;
+      document.getElementById('tag').textContent = curso.faculdade + ' | ' + curso.professor;
+
+      const nomeParts = curso.nome.split(' ');
+      const last = nomeParts.pop();
+      document.getElementById('title').innerHTML = nomeParts.join(' ') + '<br><span>' + last + '</span>';
+      document.getElementById('tagline').textContent = curso.tagline;
+
+      const container = document.getElementById('aulas');
+
+      aulas.forEach((aula, i) => {
+        const num = String(i).padStart(2, '0');
+
+        if (aula.pratica) {
+          const group = document.createElement('div');
+          group.className = 'aula-group';
+
+          const aulaUrl = `${aula.pasta}/index.html`;
+          const praticaUrl = `${aula.pasta}/${aula.pratica.arquivo}`;
+
+          group.innerHTML = `
+            <div class="aula-card">
+              <a href="${aulaUrl}" class="aula-link">
+                <div class="number">${num}</div>
+                <div class="info">
+                  <h2>${aula.nome}</h2>
+                  <p>${aula.descricao}</p>
+                </div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+              </a>
+              <button class="qr-btn" onclick="abrirModal('${aulaUrl}', '${aula.nome}')" title="QR Code">
+                <i class="fas fa-qrcode"></i>
+              </button>
+              <a href="${aulaUrl}?print-pdf" target="_blank" class="download-btn" title="Baixar PDF">
+                <i class="fas fa-file-pdf"></i>
+              </a>
+            </div>
+            <a href="${praticaUrl}" class="pratica-card">
+              <div class="info">
+                <h2 style="font-size: 16px; font-weight: 600; text-transform: none;"><span class="pratica-tag">Prática</span>${aula.pratica.nome}</h2>
+                <p>${aula.pratica.questoes > 0 ? aula.pratica.questoes + ' questões' : aula.pratica.descricao || ''}</p>
+              </div>
+              <button class="qr-btn" onclick="event.preventDefault(); event.stopPropagation(); abrirModal('${praticaUrl}', '${aula.pratica.nome}')" title="QR Code">
+                <i class="fas fa-qrcode"></i>
+              </button>
+              <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </a>
+          `;
+
+          container.appendChild(group);
+        } else {
+          const card = document.createElement('div');
+          card.className = 'aula-card';
+          const aulaUrl = `${aula.pasta}/index.html`;
+          card.innerHTML = `
+            <a href="${aulaUrl}" class="aula-link">
+              <div class="number">${num}</div>
+              <div class="info">
+                <h2>${aula.nome}</h2>
+                <p>${aula.descricao}</p>
+              </div>
+              <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </a>
+            <button class="qr-btn" onclick="abrirModal('${aulaUrl}', '${aula.nome}')" title="QR Code">
+              <i class="fas fa-qrcode"></i>
+            </button>
+            <a href="${aulaUrl}?print-pdf" target="_blank" class="download-btn" title="Baixar PDF">
+              <i class="fas fa-file-pdf"></i>
+            </a>
+          `;
+          container.appendChild(card);
+        }
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>

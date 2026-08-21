@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="css/mattropolis.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+.reveal .slides section {
+  padding: 0 !important;
+  background-color: #020617 !important;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.reveal .slides section.present {
+  opacity: 1 !important;
+}
+
+.reveal .slides section:not(.present) {
+  opacity: 0 !important;
+}
+
+.slide-content {
+  width: 100%;
+  height: 100%;
+  padding: 40px 60px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #0f172a;
+}
+
+.reveal h1 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  line-height: 1.1 !important;
+  font-size: 91px !important;
+}
+
+.reveal h2 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  border-left: 10px solid #22c55e;
+  padding-left: 30px !important;
+  margin-bottom: 20px !important;
+  font-size: 62px !important;
+}
+
+.reveal h3 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 700 !important;
+  color: #f97316 !important;
+  font-size: 41px !important;
+  margin-bottom: 16px !important;
+}
+
+.reveal p, .reveal li {
+  font-family: 'Urbanist', sans-serif !important;
+  color: #94a3b8 !important;
+  font-size: 32px !important;
+  line-height: 1.5 !important;
+}
+
+.reveal ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.reveal ul li::before {
+  content: '▸ ' !important;
+  color: #22c55e !important;
+  font-weight: bold !important;
+}
+
+.green { color: #22c55e !important; }
+.orange { color: #f97316 !important; }
+.mono { font-family: 'JetBrains Mono', monospace !important; text-transform: uppercase; letter-spacing: 3px; }
+.divider { width: 100%; height: 1px; background: #1e293b; margin: 20px 0; }
+
+.slide-content::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  left: 60px;
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, #22c55e, #f97316);
+}
+
+.reveal .fragment {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal .fragment.visible {
+  opacity: 1;
+}
+
+.reveal .fragment.fade-up {
+  transform: translateY(15px);
+}
+
+.reveal .fragment.visible.fade-up {
+  transform: translateY(0);
+}
+
+.quiz-option {
+  background: #0f172a !important;
+  border: 2px solid #1e293b !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+  margin-bottom: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.quiz-option p {
+  font-size: 23px !important;
+  margin: 0 !important;
+}
+
+.quiz-option.correct {
+  border-color: #22c55e !important;
+  background: rgba(34, 197, 94, 0.15) !important;
+}
+
+.quiz-option.incorrect {
+  border-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.15) !important;
+}
+
+.code-block {
+  background: #0f172a !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 18px !important;
+  color: #e2e8f0 !important;
+  line-height: 1.6 !important;
+  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.code-block .keyword { color: #f97316 !important; }
+.code-block .string { color: #22c55e !important; }
+.code-block .comment { color: #475569 !important; }
+.code-block .function { color: #38bdf8 !important; }
+</style>
+
+<!-- SLIDE 1: CAPA -->
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="mono green" style="font-size: 27px; margin-bottom: 24px;">AULA 01</div>
+  <h1 style="font-size: 46px !important;">TECNOLOGIAS<br></br><span class="green" style="font-size: 72px !important;">FRONTEND E BACKEND</span></h1>
+  <div style="height: 2px; width: 100px; background: linear-gradient(90deg, #22c55e, #f97316); margin: 40px 0;"></div>
+  <div class="mono" style="font-size: 18px; color: #475569;">DESENVOLVIMENTO DE APLICAÇÕES CORPORATIVAS</div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 2: OBJETIVO DA AULA -->
+<div class="slide-content">
+  <h2>Objetivo da <span>Aula</span></h2>
+  <p style="margin-bottom: 30px;">Conhecer as principais tecnologias do mercado.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Frontend:</strong> React, Vue.js e Angular</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Backend:</strong> Express, NestJS e FeathersJS</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Comparativo:</strong> Vantagens e desvantagens</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Decisão:</strong> Stack que vamos utilizar na disciplina</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 3: O QUE É FRONTEND -->
+<div class="slide-content">
+  <h2>O que é <span>Frontend</span>?</h2>
+  <p style="margin-bottom: 30px;">O lado do cliente - o que o usuário vê e interage.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Interface Visual:</strong> Layout, cores, tipografia</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Interação:</strong> Cliques, formulários, animações</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Responsividade:</strong> Funciona em qualquer dispositivo</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Experiência:</strong> Usabilidade e acessibilidade</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 4: O QUE É BACKEND -->
+<div class="slide-content">
+  <h2>O que é <span>Backend</span>?</h2>
+  <p style="margin-bottom: 30px;">O lado do servidor - onde a mágica acontece.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Lógica:</strong> Regras de negócio da aplicação</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Dados:</strong> Banco de dados e persistência</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">APIs:</strong> Comunicação entre sistemas</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Segurança:</strong> Autenticação e autorização</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 5: FRONTEND - REACT -->
+<div class="slide-content">
+  <h2>React</h2>
+  <p style="margin-bottom: 20px;">Biblioteca criada pelo Facebook para UI.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Componentes:</strong> UI reutilizável</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">JSX:</strong> JavaScript + HTML</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Virtual DOM:</strong> Atualizações eficientes</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Hooks:</strong> State e lifecycle</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 6: REACT - CÓDIGO -->
+<div class="slide-content">
+  <h2>React - <span>Código</span></h2>
+  <div class="code-block fragment fade-up">
+    <span class="comment">// App.jsx</span><br>
+    <span class="keyword">import</span> { useState } <span class="keyword">from</span> <span class="string">'react'</span>;<br><br>
+    <span class="keyword">function</span> <span class="function">App</span>() {<br>
+    &nbsp;&nbsp;<span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(0);<br><br>
+    &nbsp;&nbsp;<span class="keyword">return</span> (<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Contador: {count}&lt;/h1&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onClick={() =&gt; <span class="function">setCount</span>(count + 1)}&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Incrementar<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/button&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+    &nbsp;&nbsp;);<br>
+    }
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 7: REACT - RECURSOS -->
+<div class="slide-content">
+  <h2>React - <span>Recursos</span></h2>
+  <p style="margin-bottom: 20px;">Ecossistema robusto e comunidade ativa.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">React Router:</strong> Navegação SPA</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Redux/Zustand:</strong> Gerenciamento de estado</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Next.js:</strong> Framework fullstack</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Documentação:</strong> react.dev</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 8: FRONTEND - VUE -->
+<div class="slide-content">
+  <h2>Vue.js</h2>
+  <p style="margin-bottom: 20px;">Framework progressivo e flexível.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Two-way binding:</strong> Sincronização automática</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">SFC:</strong> Single File Components (.vue)</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Leveza:</strong> Curva de aprendizado suave</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Composition API:</strong> Reatividade avançada</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 9: VUE - CÓDIGO -->
+<div class="slide-content">
+  <h2>Vue.js - <span>Código</span></h2>
+  <div class="code-block fragment fade-up">
+    <span class="comment">&lt;!-- App.vue --&gt;</span><br>
+    &lt;template&gt;<br>
+    &nbsp;&nbsp;&lt;div&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Contador: {{ contador }}&lt;/h1&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;button @click="incrementar"&gt;Incrementar&lt;/button&gt;<br>
+    &nbsp;&nbsp;&lt;/div&gt;<br>
+    &lt;/template&gt;<br><br>
+    &lt;script setup&gt;<br>
+    <span class="keyword">import</span> { ref } <span class="keyword">from</span> <span class="string">'vue'</span>;<br><br>
+    <span class="keyword">const</span> contador = <span class="function">ref</span>(0);<br>
+    <span class="keyword">const</span> <span class="function">incrementar</span> = () =&gt; { contador.value++; };<br>
+    &lt;/script&gt;
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 10: VUE - RECURSOS -->
+<div class="slide-content">
+  <h2>Vue.js - <span>Recursos</span></h2>
+  <p style="margin-bottom: 20px;">Flexibilidade e produtividade.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Vue Router:</strong> Roteamento oficial</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Pinia:</strong> Gerenciamento de estado</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Nuxt.js:</strong> Framework fullstack</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Documentação:</strong> vuejs.org</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 11: FRONTEND - ANGULAR -->
+<div class="slide-content">
+  <h2>Angular</h2>
+  <p style="margin-bottom: 20px;">Framework completo do Google.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">TypeScript:</strong> Tipagem estática nativa</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Arquitetura Modular:</strong> Organização robusta</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Dependency Injection:</strong> Inversão de controle</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">CLI:</strong> Geração de código automatizada</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 12: ANGULAR - CÓDIGO -->
+<div class="slide-content">
+  <h2>Angular - <span>Código</span></h2>
+  <div class="code-block fragment fade-up">
+    <span class="comment">// app.component.ts</span><br>
+    <span class="keyword">import</span> { Component } <span class="keyword">from</span> <span class="string">'@angular/core'</span>;<br><br>
+    <span class="function">@Component</span>({<br>
+    &nbsp;&nbsp;selector: <span class="string">'app-root'</span>,<br>
+    &nbsp;&nbsp;template: `<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Contador: {{ contador }}&lt;/h1&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;button (click)="incrementar()"&gt;Incrementar&lt;/button&gt;<br>
+    &nbsp;&nbsp;`<br>
+    })<br>
+    <span class="keyword">export class</span> <span class="function">AppComponent</span> {<br>
+    &nbsp;&nbsp;contador = 0;<br>
+    &nbsp;&nbsp;<span class="function">incrementar</span>() { <span class="keyword">this</span>.contador++; }<br>
+    }
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 13: ANGULAR - RECURSOS -->
+<div class="slide-content">
+  <h2>Angular - <span>Recursos</span></h2>
+  <p style="margin-bottom: 20px;">Ideal para empresas e projetos grandes.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Angular Material:</strong> Componentes UI</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">RxJS:</strong> Programação reativa</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Angular CLI:</strong> Ferramenta de build</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Documentação:</strong> angular.dev</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 14: BACKEND - EXPRESS -->
+<div class="slide-content">
+  <h2>Express</h2>
+  <p style="margin-bottom: 20px;">Framework minimalista para Node.js.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Minimalista:</strong> Flexível e enxuto</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Middleware:</strong> Pipeline de processamento</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Rotas:</strong> API REST simples</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Comunidade:</strong> Maior ecossistema Node</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 15: EXPRESS - CÓDIGO -->
+<div class="slide-content">
+  <h2>Express - <span>Código</span></h2>
+  <div class="code-block fragment fade-up">
+    <span class="comment">// server.js</span><br>
+    <span class="keyword">const</span> express = <span class="function">require</span>(<span class="string">'express'</span>);<br>
+    <span class="keyword">const</span> app = <span class="function">express</span>();<br><br>
+    app.<span class="function">use</span>(express.<span class="function">json</span>());<br><br>
+    app.<span class="function">get</span>(<span class="string">'/usuarios'</span>, (req, res) =&gt; {<br>
+    &nbsp;&nbsp;res.<span class="function">json</span>([{ id: 1, nome: <span class="string">'João'</span> }]);<br>
+    });<br><br>
+    app.<span class="function">post</span>(<span class="string">'/usuarios'</span>, (req, res) =&gt; {<br>
+    &nbsp;&nbsp;res.<span class="function">status</span>(201).<span class="function">json</span>(req.body);<br>
+    });<br><br>
+    app.<span class="function">listen</span>(3000);
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 16: BACKEND - NESTJS -->
+<div class="slide-content">
+  <h2>NestJS</h2>
+  <p style="margin-bottom: 20px;">Framework modular inspirado em Angular.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">TypeScript:</strong> Nativo e tipado</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Módulos:</strong> Arquitetura organizada</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">DI:</strong> Dependency Injection</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Escalável:</strong> Microserviços e GraphQL</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 17: NESTJS - CÓDIGO -->
+<div class="slide-content">
+  <h2>NestJS - <span>Código</span></h2>
+  <div class="code-block fragment fade-up">
+    <span class="comment">// usuarios.controller.ts</span><br>
+    <span class="keyword">import</span> { Controller, Get, Post, Body } <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;<br><br>
+    <span class="function">@Controller</span>(<span class="string">'usuarios'</span>)<br>
+    <span class="keyword">export class</span> <span class="function">UsuariosController</span> {<br>
+    &nbsp;&nbsp;<span class="keyword">private</span> usuarios = [];<br><br>
+    &nbsp;&nbsp;<span class="function">@Get</span>()<br>
+    &nbsp;&nbsp;<span class="function">findAll</span>() { <span class="keyword">return this</span>.usuarios; }<br><br>
+    &nbsp;&nbsp;<span class="function">@Post</span>()<br>
+    &nbsp;&nbsp;<span class="function">create</span>(<span class="function">@Body</span>() body) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.usuarios.<span class="function">push</span>(body);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> body;<br>
+    &nbsp;&nbsp;}<br>
+    }
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 18: BACKEND - FEATHERSJS -->
+<div class="slide-content">
+  <h2>FeathersJS</h2>
+  <p style="margin-bottom: 20px;">Framework real-time para APIs.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Real-time:</strong> WebSockets nativos</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Services:</strong> CRUD automático</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Hooks:</strong> Interceptadores antes/depois</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Multi-DB:</strong> MongoDB, PostgreSQL, MySQL</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 19: FEATHERSJS - CÓDIGO -->
+<div class="slide-content">
+  <h2>FeathersJS - <span>Código</span></h2>
+  <div class="code-block fragment fade-up">
+    <span class="comment">// src/services/usuarios.ts</span><br>
+    <span class="keyword">import</span> <span class="keyword">type</span> { Application } <span class="keyword">from</span> <span class="string">'../declarations'</span>;<br>
+    <span class="keyword">import</span> { Usuarios } <span class="keyword">from</span> <span class="string">'./usuarios.class'</span>;<br><br>
+    <span class="keyword">export const</span> <span class="function">usuarios</span> = (app: Application) =&gt; {<br>
+    &nbsp;&nbsp;app.<span class="function">use</span>(<span class="string">'usuarios'</span>, <span class="keyword">new</span> <span class="function">Usuarios</span>({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;paginate: app.<span class="function">get</span>(<span class="string">'paginate'</span>)<br>
+    &nbsp;&nbsp;}));<br><br>
+    &nbsp;&nbsp;app.<span class="function">service</span>(<span class="string">'usuarios'</span>).<span class="function">hooks</span>({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;before: { create: [<span class="keyword">async</span> (ctx) =&gt; {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Criando:'</span>, ctx.data);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> ctx;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}]}<br>
+    &nbsp;&nbsp;});<br>
+    };
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 20: COMPARATIVO FRONTEND -->
+<div class="slide-content">
+  <h2>Comparativo <span>Frontend</span></h2>
+  <p style="margin-bottom: 20px;">Qual escolher?</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">React:</strong> Flexível, grande comunidade, não é framework completo</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Vue:</strong> Leve, fácil de aprender, bom para protótipos</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Angular:</strong> Completo, escalável, ideal para grandes corporações</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 21: COMPARATIVO BACKEND -->
+<div class="slide-content">
+  <h2>Comparativo <span>Backend</span></h2>
+  <p style="margin-bottom: 20px;">Qual escolher?</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Express:</strong> Minimalista, flexível, precisa configurar tudo</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">NestJS:</strong> Completo, modular, mais verboso</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">FeathersJS:</strong> Real-time, CRUD automático, produtivo</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 22: DECISÃO - VANILLA -->
+<div class="slide-content">
+  <h2>Decisão: <span>Vanilla JS/HTML/CSS</span></h2>
+  <p style="margin-bottom: 20px;">Por que tecnologias puras para o frontend?</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Liberdade:</strong> Sem amarras de framework, você escolhe como fazer</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Aprendizado real:</strong> Entende o que acontece por baixo dos frameworks</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Zero dependências:</strong> Sem build tools, sem node_modules gigante</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Performance:</strong> Sem overhead de framework, código leve</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Portabilidade:</strong> Funciona em qualquer navegador, qualquer servidor</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 23: DECISÃO - NODE.JS -->
+<div class="slide-content">
+  <h2>Decisão: <span>Node.js</span></h2>
+  <p style="margin-bottom: 20px;">Por que Node.js para o backend?</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Liberdade total:</strong> Aprender sem framework, entender o que acontece nos bastidores</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">JavaScript no server:</strong> Mesma linguagem前后 (frontend e backend)</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">NPM:</strong> Maior ecossistema de pacotes do mundo</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Non-blocking I/O:</strong> Alto desempenho com muitas conexões</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Empresas usam:</strong> Netflix, LinkedIn, Uber, Airbnb</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 24: STACK FINAL -->
+<div class="slide-content">
+  <h2>Stack da <span>Disciplina</span></h2>
+  <p style="margin-bottom: 30px;">Tecnologias escolhidas para o semestre.</p>
+  <div style="display: flex; gap: 40px; width: 100%;">
+    <div style="flex: 1; background: #0f172a; border-radius: 12px; padding: 24px; border: 2px solid #1e293b;">
+      <h3 style="margin-bottom: 16px;">Frontend</h3>
+      <ul>
+        <li><strong style="color: #fff;">HTML semântico</strong></li>
+        <li>CSS (Flexbox, Grid)</li>
+        <li>JavaScript vanilla</li>
+        <li>DOM API</li>
+      </ul>
+    </div>
+    <div style="flex: 1; background: #0f172a; border-radius: 12px; padding: 24px; border: 2px solid #1e293b;">
+      <h3 style="margin-bottom: 16px;">Backend</h3>
+      <ul>
+        <li><strong style="color: #fff;">Node.js</strong></li>
+        <li>Express</li>
+        <li>APIs REST</li>
+        <li>Banco de dados</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 25: QUIZ INTRO -->
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="mono orange" style="font-size: 20px; margin-bottom: 20px;">BORA FIXAR?</div>
+  <h1 style="font-size: 64px !important;">O <span class="orange">DESAFIO</span><br></br>DA SEMANA</h1>
+  <div style="height: 2px; width: 100px; background: linear-gradient(90deg, #f97316, #22c55e); margin: 40px 0;"></div>
+  <div class="mono" style="font-size: 14px; color: #475569;">QUIZ DE FIXAÇÃO - 5 PERGUNTAS</div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 26: QUIZ 1 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 01</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual framework <span>frontend</span> é desenvolvido pelo Google?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> React</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Vue.js</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Angular</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Svelte</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 27: QUIZ 1 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 01</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual framework <span>frontend</span> é desenvolvido pelo Google?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> React</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">B)</strong> Vue.js</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">C)</strong> Angular</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Svelte</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 28: QUIZ 2 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 02</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual framework backend é conhecido por ser <span>real-time</span> nativo?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Express</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> NestJS</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> FeathersJS</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Fastify</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 29: QUIZ 2 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 02</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual framework backend é conhecido por ser <span>real-time</span> nativo?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Express</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">B)</strong> NestJS</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">C)</strong> FeathersJS</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Fastify</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 30: QUIZ 3 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 03</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual a principal <span>desvantagem</span> do Express?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Não suporta JavaScript</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> É muito complexo</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Minimalista, precisa configurar tudo manualmente</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Não trabalha com APIs REST</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 31: QUIZ 3 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 03</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual a principal <span>desvantagem</span> do Express?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Não suporta JavaScript</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">B)</strong> É muito complexo</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">C)</strong> Minimalista, precisa configurar tudo manualmente</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Não trabalha com APIs REST</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 32: QUIZ 4 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 04</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">O que é o <span>Virtual DOM</span> no React?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Uma versão do DOM no servidor</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Uma cópia leve do DOM para atualizações eficientes</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Um banco de dados do navegador</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Uma ferramenta de debug</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 33: QUIZ 4 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 04</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">O que é o <span>Virtual DOM</span> no React?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Uma versão do DOM no servidor</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">B)</strong> Uma cópia leve do DOM para atualizações eficientes</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">C)</strong> Um banco de dados do navegador</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Uma ferramenta de debug</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 34: QUIZ 5 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 05</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual a combinação escolhida para a <span>disciplina</span>?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> React + Express</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Angular + FeathersJS</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Vanilla HTML/CSS/JS + Node.js</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Vue + NestJS</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 35: QUIZ 5 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 05</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual a combinação escolhida para a <span>disciplina</span>?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> React + Express</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">B)</strong> Angular + FeathersJS</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">C)</strong> Vanilla HTML/CSS/JS + Node.js</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Vue + NestJS</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 36: LIÇÃO DE CASA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">LIÇÃO DE CASA</div>
+  <h2>Exercício <span>Prático</span></h2>
+  <p style="margin-bottom: 20px;">Configuração do Ambiente de Desenvolvimento</p>
+  <div class="divider"></div>
+  <ol style="list-style: none; padding: 0; margin-top: 20px;">
+    <li class="fragment fade-up" style="margin-bottom: 8px;"><strong style="color: #f97316;">01</strong>&nbsp;&nbsp;Instale o <strong style="color: #fff;">Node.js</strong> (versão LTS).</li>
+    <li class="fragment fade-up" style="margin-bottom: 8px;"><strong style="color: #f97316;">02</strong>&nbsp;&nbsp;Crie uma pasta <strong style="color: #fff;">meu-projeto</strong> com index.html, style.css e script.js.</li>
+    <li class="fragment fade-up" style="margin-bottom: 8px;"><strong style="color: #f97316;">03</strong>&nbsp;&nbsp;Crie uma pasta <strong style="color: #fff;">backend</strong> e rode <span class="mono green" style="font-size: 16px;">npm init -y && npm install express</span>.</li>
+    <li class="fragment fade-up"><strong style="color: #f97316;">04</strong>&nbsp;&nbsp;Crie um <strong style="color: #fff;">server.js</strong> com Express servindo arquivos estáticos.</li>
+  </ol>
+  <div class="divider fragment fade-up"></div>
+  <p class="fragment fade-up"><strong style="color: #22c55e;">Entrega:</strong> Próxima aula.</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 37: ENCERRAMENTO -->
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="fragment fade-up" style="max-width: 900px;">
+    <h2 class="green" style="border-left: none !important; padding-left: 0 !important; font-size: 48px !important; font-style: italic; line-height: 1.4 !important;">
+      "HTML/CSS/JS puros te dão liberdade. Node.js te dá poder. Juntos, você constrói o que quiser."
+    </h2>
+  </div>
+  <div class="fragment fade-up" style="margin-top: 50px;">
+    <h1 style="font-size: 48px !important; letter-spacing: 5px;">BORA <span class="green">PRA CIMA</span>!</h1>
+  </div>
+</div>
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":960,"height":700,"margin":0.04,"controls":true,"progress":true,"slideNumber":true,"transition":"slide","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>

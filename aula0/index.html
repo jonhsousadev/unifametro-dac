@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="css/mattropolis.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+    <style>
+      @media print {
+        html.print-pdf body {
+          background: #020617 !important;
+        }
+        html.print-pdf .reveal .slide-background {
+          background: #020617 !important;
+        }
+        html.print-pdf .reveal .slides section {
+          background-color: #020617 !important;
+          color: #fff !important;
+        }
+        html.print-pdf .reveal .slides section h1,
+        html.print-pdf .reveal .slides section h2,
+        html.print-pdf .reveal .slides section h3,
+        html.print-pdf .reveal .slides section h4,
+        html.print-pdf .reveal .slides section h5,
+        html.print-pdf .reveal .slides section p,
+        html.print-pdf .reveal .slides section li,
+        html.print-pdf .reveal .slides section span {
+          color: #fff !important;
+        }
+        html.print-pdf .reveal .slides section a {
+          color: #e7ad52 !important;
+        }
+        html.print-pdf * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+.reveal .slides section {
+  padding: 0 !important;
+  background-color: #020617 !important;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.reveal .slides section.present {
+  opacity: 1 !important;
+}
+
+.reveal .slides section:not(.present) {
+  opacity: 0 !important;
+}
+
+.slide-content {
+  width: 100%;
+  height: 100%;
+  padding: 40px 60px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #0f172a;
+}
+
+.reveal h1 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  line-height: 1.1 !important;
+  font-size: 91px !important;
+}
+
+.reveal h2 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  border-left: 10px solid #22c55e;
+  padding-left: 30px !important;
+  margin-bottom: 20px !important;
+  font-size: 62px !important;
+}
+
+.reveal h3 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 700 !important;
+  color: #f97316 !important;
+  font-size: 41px !important;
+  margin-bottom: 16px !important;
+}
+
+.reveal p, .reveal li {
+  font-family: 'Urbanist', sans-serif !important;
+  color: #94a3b8 !important;
+  font-size: 32px !important;
+  line-height: 1.5 !important;
+}
+
+.reveal ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.reveal ul li::before {
+  content: '▸ ' !important;
+  color: #22c55e !important;
+  font-weight: bold !important;
+}
+
+.green { color: #22c55e !important; }
+.orange { color: #f97316 !important; }
+.mono { font-family: 'JetBrains Mono', monospace !important; text-transform: uppercase; letter-spacing: 3px; }
+.divider { width: 100%; height: 1px; background: #1e293b; margin: 20px 0; }
+
+.slide-content::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  left: 60px;
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, #22c55e, #f97316);
+}
+
+.reveal .fragment {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal .fragment.visible {
+  opacity: 1;
+}
+
+.reveal .fragment.fade-up {
+  transform: translateY(15px);
+}
+
+.reveal .fragment.visible.fade-up {
+  transform: translateY(0);
+}
+
+.quiz-option {
+  background: #0f172a !important;
+  border: 2px solid #1e293b !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+  margin-bottom: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.quiz-option p {
+  font-size: 23px !important;
+  margin: 0 !important;
+}
+
+.quiz-option.correct {
+  border-color: #22c55e !important;
+  background: rgba(34, 197, 94, 0.15) !important;
+}
+
+.quiz-option.incorrect {
+  border-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.15) !important;
+}
+</style>
+
+<!-- SLIDE 1: CAPA -->
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="mono green" style="font-size: 27px; margin-bottom: 24px;">AULA 00: ABERTURA</div>
+  <h1 style="font-size: 46px !important;">DESENVOLVIMENTO DE<br></br><span class="green" style="font-size: 82px !important;">APLICAÇÕES CORPORATIVAS</span></h1>
+  <div style="height: 2px; width: 100px; background: linear-gradient(90deg, #22c55e, #f97316); margin: 40px 0;"></div>
+  <div class="mono" style="font-size: 18px; color: #475569;">UNIFAMETRO | PROF. JONH SOUSA</div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 2: SOBRE A DISCIPLINA -->
+<div class="slide-content">
+  <h2>Sobre a <span>Disciplina</span></h2>
+  <p style="margin-bottom: 30px;">O que vamos aprender neste semestre?</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Frontend:</strong> Interfaces modernas, responsivas e acessíveis</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Backend:</strong> Lógica de negócios e APIs</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Git:</strong> Versionamento e colaboração</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Projetos:</strong> Aplicação prática do conhecimento</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 3: QUEM SOMOS -->
+<div class="slide-content">
+  <h2>Quem <span>Somos</span>?</h2>
+  <p style="margin-bottom: 30px;">Apresentação da turma.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Nome:</strong> Como você se chama?</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Trabalho:</strong> Você trabalha? Onde?</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">3 Fatos:</strong> 2 verdades e 1 mentira</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Objetivo:</strong> Conhecer a turma!</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 4: METODOLOGIA -->
+<div class="slide-content">
+  <h2>Como será a <span>Disciplina</span>?</h2>
+  <p style="margin-bottom: 30px;">Metodologia de ensino.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Materiais Online:</strong> Acessíveis a qualquer momento</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Projetos Práticos:</strong> Fixação via código</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Code Review:</strong> Aprendizado com feedback</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Avaliações:</strong> Modelo ENADE</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 5: ENTREGAS E AVALIAÇÃO -->
+<div class="slide-content">
+  <h2>Entregas e <span>Avaliação</span></h2>
+  <p style="margin-bottom: 30px;">Como será o processo de avaliação.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Via Git:</strong> Todas as entregas via repositório</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Code Review:</strong> Correção via comentários</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">ENADE:</strong> Padrão de avaliação universitário</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Frequência:</strong> Presença obrigatória</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 6: O QUE É FRONTEND -->
+<div class="slide-content">
+  <h2>O que é <span>Frontend</span>?</h2>
+  <p style="margin-bottom: 30px;">O lado do cliente.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Interface Visual:</strong> O que o usuário vê</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Experiência:</strong> Interação e usabilidade</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Tecnologias:</strong> HTML, CSS, JavaScript</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Frameworks:</strong> React, Vue, Angular</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 7: O QUE É BACKEND -->
+<div class="slide-content">
+  <h2>O que é <span>Backend</span>?</h2>
+  <p style="margin-bottom: 30px;">O lado do servidor.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Lógica:</strong> Regras de negócio</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Dados:</strong> Banco de dados e APIs</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Segurança:</strong> Autenticação e autorização</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Linguagens:</strong> Node.js, Python, Java</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 8: METÁFORA DO LEÃO - FRONTEND -->
+<div class="slide-content">
+  <h2>A Metáfora do <span>Leão</span></h2>
+  <p style="margin-bottom: 12px;">Frontend é isso...</p>
+  <img src="https://aventurasnahistoria.com.br/wp-content/uploads/curiosidades/mgm_logo.jpg" alt="Frente do Leão" style="width: 50%; max-height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">O que o cliente vê:</strong> Bonito, imponente, elegante.</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 9: METÁFORA DO LEÃO - BACKEND -->
+<div class="slide-content">
+  <h2>A Metáfora do <span>Leão</span></h2>
+  <p style="margin-bottom: 12px;">Já o Backend...</p>
+  <img src="http://www.e-farsas.com/wp-content/uploads/leao3.jpg" alt="Atrás do Leão" style="width: 50%; max-height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Sem isso:</strong> A aplicação não funciona!</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 10: GIT E VERSIONAMENTO -->
+<div class="slide-content">
+  <h2>Git e <span>Versionamento</span></h2>
+  <p style="margin-bottom: 30px;">Controle de versões e boas práticas.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Git:</strong> Sistema de controle de versão</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Gitflow:</strong> Estratégia de branches</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Conventional Commits:</strong> Padrão de mensagens</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">GitHub Actions:</strong> CI/CD automatizado</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 11: TECNOLOGIAS EXEMPLO -->
+<div class="slide-content">
+  <h2>Tecnologias <span>Exemplo</span></h2>
+  <p style="margin-bottom: 30px;">Stack que vamos utilizar.</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">Frontend:</strong> React + TypeScript</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Backend:</strong> Node.js + Express</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Banco:</strong> PostgreSQL</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Deploy:</strong> Vercel + Railway</li>
+  </ul>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 12: DÚVIDAS -->
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <h2 style="border-left: none !important; padding-left: 0 !important;">Dúvidas ou <span>Perguntas</span>?</h2>
+  <p style="max-width: 700px; margin: 30px auto; font-size: 32px !important;">Sinta-se à vontade para perguntar!</p>
+  <div class="divider" style="width: 200px; margin: 30px auto;"></div>
+  <p><strong style="color: #fff;">E-mail:</strong> <code>jonh.sousa@professor.unifametro.edu.br</code></p>
+  <p><strong style="color: #fff;">Site:</strong> <code>jonhsousa.com.br</code></p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 13: QUIZ DE FIXAÇÃO - INTRO -->
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="mono orange" style="font-size: 20px; margin-bottom: 20px;">BORA FIXAR?</div>
+  <h1 style="font-size: 64px !important;">O <span class="orange">DESAFIO</span><br></br>DA SEMANA</h1>
+  <div style="height: 2px; width: 100px; background: linear-gradient(90deg, #f97316, #22c55e); margin: 40px 0;"></div>
+  <div class="mono" style="font-size: 14px; color: #475569;">QUIZ DE FIXAÇÃO - 5 PERGUNTAS</div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 14: QUIZ 1 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 01</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual é a principal <span>função</span> do Frontend?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Gerenciar banco de dados</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Criar a interface visual do usuário</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Processar lógica de negócio</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Configurar servidores</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 15: QUIZ 1 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 01</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual é a principal <span>função</span> do Frontend?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Gerenciar banco de dados</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">B)</strong> Criar a interface visual do usuário</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">C)</strong> Processar lógica de negócio</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Configurar servidores</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 16: QUIZ 2 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 02</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual ferramenta é usada para <span>versionamento</span> de código?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Photoshop</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Git</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Excel</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> PowerPoint</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 17: QUIZ 2 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 02</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual ferramenta é usada para <span>versionamento</span> de código?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Photoshop</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">B)</strong> Git</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">C)</strong> Excel</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> PowerPoint</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 18: QUIZ 3 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 03</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual linguagem é responsável pela <span>estilização</span> de páginas web?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Python</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Java</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> CSS</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> C++</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 19: QUIZ 3 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 03</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual linguagem é responsável pela <span>estilização</span> de páginas web?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Python</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">B)</strong> Java</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">C)</strong> CSS</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> C++</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 20: QUIZ 4 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 04</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Como são feitas as entregas dos projetos nesta disciplina?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Via e-mail</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Em pen drive</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Via Git (GitHub)</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Impresso</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 21: QUIZ 4 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 04</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Como são feitas as entregas dos projetos nesta disciplina?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Via e-mail</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">B)</strong> Em pen drive</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">C)</strong> Via Git (GitHub)</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Impresso</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 22: QUIZ 5 - PERGUNTA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">PERGUNTA 05</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual o modelo de avaliação utilizado na disciplina?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">A)</strong> Prova oral</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">B)</strong> Modelo ENADE</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">C)</strong> Apenas projetos</p>
+  </div>
+  <div class="quiz-option">
+    <p><strong style="color: #22c55e;">D)</strong> Apresentação em grupo</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 23: QUIZ 5 - RESPOSTA -->
+<div class="slide-content">
+  <div class="mono green" style="font-size: 16px; margin-bottom: 12px;">RESPOSTA 05</div>
+  <h2 style="font-size: 42px !important; margin-bottom: 16px !important;">Qual o modelo de avaliação utilizado na disciplina?</h2>
+  <div class="divider"></div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">A)</strong> Prova oral</p>
+  </div>
+  <div class="quiz-option correct">
+    <p><strong style="color: #22c55e;">B)</strong> Modelo ENADE</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">C)</strong> Apenas projetos</p>
+  </div>
+  <div class="quiz-option incorrect">
+    <p><strong style="color: #ef4444;">D)</strong> Apresentação em grupo</p>
+  </div>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 24: LIÇÃO DE CASA -->
+<div class="slide-content">
+  <div class="mono orange" style="font-size: 16px; margin-bottom: 12px;">LIÇÃO DE CASA</div>
+  <h2>Exercício <span>Prático</span></h2>
+  <p style="margin-bottom: 20px;">Mapeamento do Ecossistema de Desenvolvimento Web</p>
+  <div class="divider"></div>
+  <ol style="list-style: none; padding: 0; margin-top: 20px;">
+    <li class="fragment fade-up" style="margin-bottom: 8px;"><strong style="color: #f97316;">01</strong>&nbsp;&nbsp;Pesquise frameworks <strong style="color: #fff;">frontend</strong> (React, Vue, Angular).</li>
+    <li class="fragment fade-up" style="margin-bottom: 8px;"><strong style="color: #f97316;">02</strong>&nbsp;&nbsp;Pesquise frameworks <strong style="color: #fff;">backend</strong> (Express, NestJS, Fastify).</li>
+    <li class="fragment fade-up"><strong style="color: #f97316;">03</strong>&nbsp;&nbsp;Crie uma tabela comparativa com prós e contras.</li>
+  </ol>
+  <div class="divider fragment fade-up"></div>
+  <p class="fragment fade-up"><strong style="color: #22c55e;">Entrega:</strong> Próxima aula.</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<!-- SLIDE 25: ENCERRAMENTO -->
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="fragment fade-up" style="max-width: 900px;">
+    <h2 class="green" style="border-left: none !important; padding-left: 0 !important; font-size: 56px !important; font-style: italic; line-height: 1.4 !important;">
+      "Ser desenvolvedor não é tentar pra ver se dá certo. É tentar até dar certo."
+    </h2>
+  </div>
+  <div class="fragment fade-up" style="margin-top: 50px;">
+    <h1 style="font-size: 48px !important; letter-spacing: 5px;">BORA <span class="green">PRA CIMA</span>!</h1>
+  </div>
+</div>
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":960,"height":700,"margin":0.04,"controls":true,"progress":true,"slideNumber":true,"transition":"slide","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>

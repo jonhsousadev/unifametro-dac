@@ -1,0 +1,28 @@
+{
+  "curso": {
+    "nome": "Desenvolvimento de Aplicações Corporativas",
+    "faculdade": "UNIFAMETRO",
+    "professor": "Prof. Jonh Sousa",
+    "tagline": "Ambiente online de aprendizagem",
+    "cor": "#22c55e"
+  },
+  "aulas": [
+    {
+      "id": "00",
+      "pasta": "aula0",
+      "nome": "Abertura",
+      "descricao": "Apresentação da disciplina, metodologia e conceitos iniciais"
+    },
+    {
+      "id": "01",
+      "pasta": "aula1",
+      "nome": "Tecnologias Frontend e Backend",
+      "descricao": "React, Vue.js, Angular, Express, NestJS e FeathersJS",
+      "pratica": {
+        "nome": "Nivelamento Web: HTML5, CSS3 e JavaScript",
+        "arquivo": "pratica/index.html",
+        "questoes": 44
+      }
+    }
+  ]
+}
