@@ -346,8 +346,65 @@
       font-size: 13px;
     }
 
+    .playground-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: linear-gradient(135deg, #1e1a24, #2b2735);
+      border: 1px solid #3d3654;
+      border-radius: 12px;
+      padding: 24px 28px;
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .playground-card:hover {
+      border-color: #bb9af7;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(187, 154, 247, 0.15);
+    }
+
+    .playground-icon {
+      font-size: 36px;
+      color: #bb9af7;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .playground-card .info {
+      flex: 1;
+    }
+
+    .playground-card .info h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #eee8d5;
+      margin-bottom: 4px;
+    }
+
+    .playground-card .info p {
+      font-size: 15px;
+      color: #938aaf;
+    }
+
+    .playground-card .arrow {
+      color: #6b6080;
+      font-size: 20px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .playground-card:hover .arrow {
+      color: #bb9af7;
+      transform: translateX(4px);
+    }
+
     @media (max-width: 600px) {
       .header h1 { font-size: 32px; }
+      .playground-card { padding: 16px 18px; gap: 14px; }
+      .playground-icon { font-size: 28px; min-width: 44px; }
+      .playground-card .info h2 { font-size: 17px; }
       .aula-card { padding: 16px 18px; gap: 14px; }
       .aula-card .number { font-size: 22px; min-width: 44px; }
       .aula-card .info h2 { font-size: 17px; }
@@ -366,6 +423,15 @@
       <div class="divider-line"></div>
       <p id="tagline"></p>
     </div>
+
+    <a href="https://playground-interativo-web.vercel.app/" target="_blank" class="playground-card">
+      <div class="playground-icon"><i class="fas fa-play-circle"></i></div>
+      <div class="info">
+        <h2>Playground Interativo</h2>
+        <p>Pratique HTML5, CSS3 e JavaScript com editor e preview em tempo real</p>
+      </div>
+      <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+    </a>
 
     <div class="aulas" id="aulas"></div>
   </div>
