@@ -23,6 +23,12 @@
         "arquivo": "pratica/index.html",
         "questoes": 44
       }
+    },
+    {
+      "id": "02",
+      "pasta": "aula2",
+      "nome": "Introdução ao HTML",
+      "descricao": "Histórico, semântica e estrutura básica do HTML5."
     }
   ]
 }
