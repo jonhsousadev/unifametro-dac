@@ -29,6 +29,12 @@
       "pasta": "aula2",
       "nome": "Introdução ao HTML",
       "descricao": "Histórico, semântica e estrutura básica do HTML5."
+    },
+    {
+      "id": "03",
+      "pasta": "aula3",
+      "nome": "Atributos e Produtividade no HTML",
+      "descricao": "Atributos id, class e inline, precedência de especificidade, técnicas de estilização e Emmet."
     }
   ]
 }
