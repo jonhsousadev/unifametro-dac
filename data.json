@@ -34,7 +34,11 @@
       "id": "03",
       "pasta": "aula3",
       "nome": "Atributos e Produtividade no HTML",
-      "descricao": "Atributos id, class e inline, precedência de especificidade, técnicas de estilização e Emmet."
+      "descricao": "Atributos id, class e inline, precedência de especificidade, técnicas de estilização e Emmet.",
+      "pratica": {
+        "nome": "EMMET: PRODUTIVIDADE",
+        "arquivo": "emmet-pratica.html"
+      }
     }
   ]
 }

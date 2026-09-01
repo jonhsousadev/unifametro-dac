@@ -212,7 +212,7 @@
 <div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
   <div class="mono green" style="font-size: 27px; margin-bottom: 24px;">AULA 03</div>
   <h1 style="font-size: 52px !important;">ATRIBUTOS E<br><span class="green" style="font-size: 68px !important;">PRODUTIVIDADE</span></h1>
-  <div class="mono" style="font-size: 20px; color: #64748b; margin-top: 10px;">HTML + EMMET</div>
+  <div class="mono" style="font-size: 20px; color: #64748b; margin-top: 10px;">HTML + LISTAS + TABELAS</div>
   <div style="height: 2px; width: 100px; background: linear-gradient(90deg, #22c55e, #f97316); margin: 40px 0;"></div>
   <div class="mono" style="font-size: 18px; color: #475569;">UNIFAMETRO | PROF. JONH SOUSA</div>
 </div>
@@ -429,325 +429,179 @@
 </div>
 </div></script></section>
 
-<!-- ==================== SLIDE 12: EMMET - O QUE É ==================== -->
-<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
-  <div class="mono orange" style="font-size: 20px; margin-bottom: 20px;">CONTEÚDO EXTRA</div>
-  <h2 style="border-left: none !important; padding-left: 0 !important;">EMMET: <span class="green">Produtividade</span></h2>
-  <p style="max-width: 700px; margin: 20px auto; font-size: 30px !important;">
-    A <strong style="color: #fff;">mágica</strong> para escrever HTML sem digitar tudo.
-  </p>
-  <div class="divider" style="width: 200px; margin: 30px auto;"></div>
-  <p style="font-size: 26px !important; color: #94a3b8 !important;">
-    Abbreviation → <strong style="color: #22c55e;">Tab</strong> → HTML completo
-  </p>
-</div>
-</div></script></section>
-
-<!-- ==================== SLIDE 13: EMMET - ONDE ESTÁ ==================== -->
+<!-- ==================== SLIDE 12: TABELAS HTML ==================== -->
 <section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <div class="slide-content">
-  <h2>Onde Está o <span class="green">Emmet</span>?</h2>
-  <p style="margin-bottom: 20px;">Já vem pronto na maioria dos editores modernos!</p>
-  <ul>
-    <li class="fragment fade-up"><strong style="color: #fff;">VS Code:</strong> Integrado por padrão — não precisa instalar nada</li>
-    <li class="fragment fade-up"><strong style="color: #fff;">Sublime Text:</strong> Instale o plugin "Emmet" via Package Control</li>
-    <li class="fragment fade-up"><strong style="color: #fff;">Zed:</strong> Suporte nativo ao Emmet — funciona direto do box</li>
-    <li class="fragment fade-up"><strong style="color: #fff;">Neovim / Vim:</strong> Plugin "emmet-vim" disponível</li>
-    <li class="fragment fade-up"><strong style="color: #fff;">WebStorm:</strong> Suporte integrado</li>
-  </ul>
-  <div class="divider fragment fade-up"></div>
-  <p class="fragment fade-up" style="font-size: 24px !important;">
-    <strong style="color: #f97316;">Dica:</strong> No VS Code, se não estiver funcionando, busque por "Emmet" nas extensões.
-  </p>
+  <h2>Tabelas <span class="green">HTML</span></h2>
+  <p style="margin-bottom: 16px;">Estrutura para organizar dados em linhas e colunas.</p>
+  <div class="code-block fragment fade-up">
+    <span class="keyword">&lt;table&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;thead&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;tr&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;th&gt;</span>Nome<span class="keyword">&lt;/th&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;th&gt;</span>Idade<span class="keyword">&lt;/th&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/tr&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;/thead&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;tbody&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;tr&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;td&gt;</span>Ana<span class="keyword">&lt;/td&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;td&gt;</span>20<span class="keyword">&lt;/td&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/tr&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;/tbody&gt;</span><br>
+    <span class="keyword">&lt;/table&gt;</span>
+  </div>
 </div>
 </div></script></section>
 
-<!-- ==================== SLIDE 14: EMMET - SINTAXE BÁSICA ==================== -->
+<!-- ==================== SLIDE 13: TABELAS - ATRIBUTOS ==================== -->
 <section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <div class="slide-content">
-  <h2>Emmet: <span class="green">Sintaxe Básica</span></h2>
-  <p style="margin-bottom: 16px;">A abreviação mais simples — só o nome da tag.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 22px !important;">
-        <span class="function">div</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 22px !important;">
-        <span class="keyword">&lt;div&gt;&lt;/div&gt;</span>
-      </div>
-    </div>
+  <h2>Tabelas: <span class="orange">colspan e rowspan</span></h2>
+  <p style="margin-bottom: 16px;">Atributos para mesclar células.</p>
+  <div class="code-block fragment fade-up">
+    <span class="comment">&lt;!-- colspan: mesclar colunas --&gt;</span><br>
+    <span class="keyword">&lt;td</span> <span class="function">colspan</span>=<span class="string">"2"</span><span class="keyword">&gt;</span>Ocupa 2 colunas<span class="keyword">&lt;/td&gt;</span><br><br>
+    <span class="comment">&lt;!-- rowspan: mesclar linhas --&gt;</span><br>
+    <span class="keyword">&lt;td</span> <span class="function">rowspan</span>=<span class="string">"3"</span><span class="keyword">&gt;</span>Ocupa 3 linhas<span class="keyword">&lt;/td&gt;</span>
   </div>
   <ul style="margin-top: 20px;">
-    <li class="fragment fade-up"><code style="color: #f97316;">p</code> → <code style="color: #22c55e;">&lt;p&gt;&lt;/p&gt;</code></li>
-    <li class="fragment fade-up"><code style="color: #f97316;">h1</code> → <code style="color: #22c55e;">&lt;h1&gt;&lt;/h1&gt;</code></li>
-    <li class="fragment fade-up"><code style="color: #f97316;">section</code> → <code style="color: #22c55e;">&lt;section&gt;&lt;/section&gt;</code></li>
+    <li class="fragment fade-up"><strong style="color: #fff;">border:</strong> Borda da tabela (deprecated, use CSS)</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">cellpadding:</strong> Espaço interno das células</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">cellspacing:</strong> Espaço entre células</li>
   </ul>
 </div>
 </div></script></section>
 
-<!-- ==================== SLIDE 15: EMMET - FILHOS ==================== -->
+<!-- ==================== SLIDE 14: LISTAS NÃO ORDENADAS ==================== -->
 <section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <div class="slide-content">
-  <h2>Emmet: <span class="green">Filhos</span></h2>
-  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">&gt;</code> para aninhar elementos.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 20px !important;">
-        <span class="function">nav&gt;ul&gt;li</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 16px !important;">
-        <span class="keyword">&lt;nav&gt;</span><br>
-        &nbsp;&nbsp;<span class="keyword">&lt;ul&gt;</span><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
-        &nbsp;&nbsp;<span class="keyword">&lt;/ul&gt;</span><br>
-        <span class="keyword">&lt;/nav&gt;</span>
-      </div>
-    </div>
+  <h2>Listas <span class="green">Não Ordenadas</span></h2>
+  <p style="margin-bottom: 16px;">Itens sem ordem específica — usar <code style="color: #f97316;">&lt;ul&gt;</code></p>
+  <div class="code-block fragment fade-up">
+    <span class="keyword">&lt;ul&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>HTML<span class="keyword">&lt;/li&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>CSS<span class="keyword">&lt;/li&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>JavaScript<span class="keyword">&lt;/li&gt;</span><br>
+    <span class="keyword">&lt;/ul&gt;</span>
   </div>
-  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
-    <code style="color: #f97316;">div&gt;header&gt;h1</code> cria uma div com header dentro e h1 dentro do header.
-  </p>
-</div>
-</div></script></section>
-
-<!-- ==================== SLIDE 16: EMMET - IRMÃOS ==================== -->
-<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<div class="slide-content">
-  <h2>Emmet: <span class="green">Irmãos</span></h2>
-  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">+</code> para elementos no mesmo nível.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 20px !important;">
-        <span class="function">header+main+footer</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 16px !important;">
-        <span class="keyword">&lt;header&gt;&lt;/header&gt;</span><br>
-        <span class="keyword">&lt;main&gt;&lt;/main&gt;</span><br>
-        <span class="keyword">&lt;footer&gt;&lt;/footer&gt;</span>
-      </div>
-    </div>
-  </div>
-  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
-    <code style="color: #f97316;">h1+h2+p</code> cria os três elementos lado a lado.
-  </p>
-</div>
-</div></script></section>
-
-<!-- ==================== SLIDE 17: EMMET - CLASSES E IDs ==================== -->
-<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<div class="slide-content">
-  <h2>Emmet: <span class="green">Classes e IDs</span></h2>
-  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">.</code> para class e <code style="color: #f97316;">#</code> para id.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 18px !important;">
-        <span class="function">div.card</span><br>
-        <span class="function">div#principal</span><br>
-        <span class="function">p.texto.verde</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 16px !important;">
-        <span class="keyword">&lt;div</span> <span class="function">class</span>=<span class="string">"card"</span><span class="keyword">&gt;&lt;/div&gt;</span><br>
-        <span class="keyword">&lt;div</span> <span class="function">id</span>=<span class="string">"principal"</span><span class="keyword">&gt;&lt;/div&gt;</span><br>
-        <span class="keyword">&lt;p</span> <span class="function">class</span>=<span class="string">"texto verde"</span><span class="keyword">&gt;&lt;/p&gt;</span>
-      </div>
-    </div>
+  <div style="margin-top: 20px;">
+    <h3 style="font-size: 24px !important;">Atributo <span class="green">type</span></h3>
+    <ul>
+      <li class="fragment fade-up"><code style="color: #f97316;">type="disc"</code> — Padrão (ponto cheio)</li>
+      <li class="fragment fade-up"><code style="color: #f97316;">type="circle"</code> — Círculo vazio</li>
+      <li class="fragment fade-up"><code style="color: #f97316;">type="square"</code> — Quadrado</li>
+    </ul>
   </div>
 </div>
 </div></script></section>
 
-<!-- ==================== SLIDE 18: EMMET - TEXTO CUSTOMIZADO ==================== -->
+<!-- ==================== SLIDE 15: LISTAS ORDENADAS ==================== -->
 <section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <div class="slide-content">
-  <h2>Emmet: <span class="green">Texto Customizado</span></h2>
-  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">{}</code> para adicionar texto.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 18px !important;">
-        <span class="function">h1{Olá Mundo}</span><br>
-        <span class="function">a{Clique aqui}</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 16px !important;">
-        <span class="keyword">&lt;h1&gt;</span>Olá Mundo<span class="keyword">&lt;/h1&gt;</span><br>
-        <span class="keyword">&lt;a&gt;</span>Clique aqui<span class="keyword">&lt;/a&gt;</span>
-      </div>
-    </div>
+  <h2>Listas <span class="orange">Ordenadas</span></h2>
+  <p style="margin-bottom: 16px;">Itens com ordem/importância — usar <code style="color: #f97316;">&lt;ol&gt;</code></p>
+  <div class="code-block fragment fade-up">
+    <span class="keyword">&lt;ol&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>Primeiro<span class="keyword">&lt;/li&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>Segundo<span class="keyword">&lt;/li&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>Terceiro<span class="keyword">&lt;/li&gt;</span><br>
+    <span class="keyword">&lt;/ol&gt;</span>
   </div>
-  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
-    <code style="color: #f97316;">p&gt;strong{Importante}</code> → <code style="color: #22c55e;">&lt;p&gt;&lt;strong&gt;Importante&lt;/strong&gt;&lt;/p&gt;</code>
-  </p>
-</div>
-</div></script></section>
-
-<!-- ==================== SLIDE 19: EMMET - MULTIPLICAÇÃO ==================== -->
-<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<div class="slide-content">
-  <h2>Emmet: <span class="green">Multiplicação</span></h2>
-  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">*</code> para repetir elementos.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 18px !important;">
-        <span class="function">li*5</span><br>
-        <span class="function">ul&gt;li*3</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 14px !important;">
-        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
-        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
-        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
-        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
-        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span>
-      </div>
-    </div>
-  </div>
-  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
-    <code style="color: #f97316;">ul&gt;li*3{Item}</code> cria ul com 3 li, cada um com "Item".
-  </p>
-</div>
-</div></script></section>
-
-<!-- ==================== SLIDE 20: EMMET - NUMERAÇÃO ==================== -->
-<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<div class="slide-content">
-  <h2>Emmet: <span class="green">Numeração</span></h2>
-  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">$</code> para numeração automática.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 18px !important;">
-        <span class="function">li.item$*3</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 14px !important;">
-        <span class="keyword">&lt;li</span> <span class="function">class</span>=<span class="string">"item1"</span><span class="keyword">&gt;&lt;/li&gt;</span><br>
-        <span class="keyword">&lt;li</span> <span class="function">class</span>=<span class="string">"item2"</span><span class="keyword">&gt;&lt;/li&gt;</span><br>
-        <span class="keyword">&lt;li</span> <span class="function">class</span>=<span class="string">"item3"</span><span class="keyword">&gt;&lt;/li&gt;</span>
-      </div>
-    </div>
-  </div>
-  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
-    <code style="color: #f97316;">li.item$$*3</code> → item01, item02, item03 (dois dígitos).
-  </p>
-</div>
-</div></script></section>
-
-<!-- ==================== SLIDE 21: EMMET - ATRIBUTOS ==================== -->
-<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-<div class="slide-content">
-  <h2>Emmet: <span class="green">Atributos</span></h2>
-  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">[]</code> para definir atributos.</p>
-  <div style="display: flex; gap: 24px; width: 100%;">
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Abreviação</h3>
-      <div class="code-block" style="font-size: 16px !important;">
-        <span class="function">a[href=google.com]</span><br>
-        <span class="function">img[src=foto.jpg]</span><br>
-        <span class="function">input[type=email]</span>
-      </div>
-    </div>
-    <div style="flex: 1;">
-      <h3 style="font-size: 24px !important;">Resultado</h3>
-      <div class="code-block" style="font-size: 14px !important;">
-        <span class="keyword">&lt;a</span> <span class="function">href</span>=<span class="string">"google.com"</span><span class="keyword">&gt;&lt;/a&gt;</span><br>
-        <span class="keyword">&lt;img</span> <span class="function">src</span>=<span class="string">"foto.jpg"</span> <span class="keyword">/&gt;</span><br>
-        <span class="keyword">&lt;input</span> <span class="function">type</span>=<span class="string">"email"</span> <span class="keyword">/&gt;</span>
-      </div>
-    </div>
+  <div style="margin-top: 20px;">
+    <h3 style="font-size: 24px !important;">Atributos</h3>
+    <ul>
+      <li class="fragment fade-up"><code style="color: #f97316;">type="1"</code> — Números (padrão)</li>
+      <li class="fragment fade-up"><code style="color: #f97316;">type="A"</code> — Letras maiúsculas (A, B, C)</li>
+      <li class="fragment fade-up"><code style="color: #f97316;">type="a"</code> — Letras minúsculas (a, b, c)</li>
+      <li class="fragment fade-up"><code style="color: #f97316;">type="I"</code> — Algarismos romanos maiúsculos</li>
+      <li class="fragment fade-up"><code style="color: #f97316;">start="5"</code> — Começar a numeração em 5</li>
+      <li class="fragment fade-up"><code style="color: #f97316;">reversed</code> — Numeração decrescente</li>
+    </ul>
   </div>
 </div>
 </div></script></section>
 
-<!-- ==================== SLIDE 22: EMMET - EXEMPLOS PRÁTICOS ==================== -->
+<!-- ==================== SLIDE 16: DESCRIPTION LIST ==================== -->
 <section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <div class="slide-content">
-  <h2>Emmet: <span class="green">Exemplos Práticos</span></h2>
-  <p style="margin-bottom: 16px;">Combinações poderosas no dia a dia.</p>
-  <div class="code-block" style="font-size: 16px !important;">
-    <span class="comment">!-- Estrutura semântica --</span><br>
-    <span class="function">header&gt;nav&gt;ul&gt;li*3&gt;a[href=#]</span><br><br>
-    <span class="comment">!-- Card com imagem --</span><br>
-    <span class="function">div.card&gt;img[src=photo.jpg]+h3{Titulo}+p{Descricao}</span><br><br>
-    <span class="comment">!-- Formulário completo --</span><br>
-    <span class="function">form&gt;label{Nome}+input[type=text]+label{Email}+input[type=email]+button{Enviar}</span><br><br>
-    <span class="comment">!-- Tabela --</span><br>
-    <span class="function">table&gt;thead&gt;tr&gt;th*3{Coluna $}+tbody&gt;tr*3&gt;td*3{Dado}</span>
+  <h2>Description List <span class="green">&lt;dl&gt;</span></h2>
+  <p style="margin-bottom: 16px;">Lista de termos e suas descrições — ideal para glossários.</p>
+  <div class="code-block fragment fade-up">
+    <span class="keyword">&lt;dl&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;dt&gt;</span>HTML<span class="keyword">&lt;/dt&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;dd&gt;</span>Linguagem de marcação para estruturar páginas web.<span class="keyword">&lt;/dd&gt;</span><br><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;dt&gt;</span>CSS<span class="keyword">&lt;/dt&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;dd&gt;</span>Folhas de estilo para visualização de elementos.<span class="keyword">&lt;/dd&gt;</span><br><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;dt&gt;</span>JavaScript<span class="keyword">&lt;/dt&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;dd&gt;</span>Linguagem de programação para comportamento dinâmico.<span class="keyword">&lt;/dd&gt;</span><br>
+    <span class="keyword">&lt;/dl&gt;</span>
+  </div>
+  <ul style="margin-top: 16px;">
+    <li class="fragment fade-up"><code style="color: #f97316;">&lt;dl&gt;</code> — Description List (lista de definições)</li>
+    <li class="fragment fade-up"><code style="color: #f97316;">&lt;dt&gt;</code> — Description Term (termo sendo definido)</li>
+    <li class="fragment fade-up"><code style="color: #f97316;">&lt;dd&gt;</code> — Description Details (descrição do termo)</li>
+  </ul>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 17: EXEMPLO PRÁTICO - LISTAS E TABELAS ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Exemplo: <span class="green">Combinando</span></h2>
+  <p style="margin-bottom: 16px;">Estrutura completa com listas e tabela.</p>
+  <div class="code-block fragment fade-up" style="font-size: 16px !important;">
+    <span class="keyword">&lt;h2&gt;</span>Disciplinas do Curso<span class="keyword">&lt;/h2&gt;</span><br>
+    <span class="keyword">&lt;ul&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>HTML<span class="keyword">&lt;/li&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>CSS<span class="keyword">&lt;/li&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;li&gt;</span>JavaScript<span class="keyword">&lt;/li&gt;</span><br>
+    <span class="keyword">&lt;/ul&gt;</span><br><br>
+    <span class="keyword">&lt;h2&gt;</span>Notas da Prova<span class="keyword">&lt;/h2&gt;</span><br>
+    <span class="keyword">&lt;table&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;tr&gt;</span><span class="keyword">&lt;th&gt;</span>Aluno<span class="keyword">&lt;/th&gt;</span><span class="keyword">&lt;th&gt;</span>Nota<span class="keyword">&lt;/th&gt;&lt;/tr&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;tr&gt;</span><span class="keyword">&lt;td&gt;</span>Maria<span class="keyword">&lt;/td&gt;</span><span class="keyword">&lt;td&gt;</span>9.5<span class="keyword">&lt;/td&gt;&lt;/tr&gt;</span><br>
+    &nbsp;&nbsp;<span class="keyword">&lt;tr&gt;</span><span class="keyword">&lt;td&gt;</span>João<span class="keyword">&lt;/td&gt;</span><span class="keyword">&lt;td&gt;</span>8.0<span class="keyword">&lt;/td&gt;&lt;/tr&gt;</span><br>
+    <span class="keyword">&lt;/table&gt;</span>
   </div>
 </div>
 </div></script></section>
 
-<!-- ==================== SLIDE 23: EXERCÍCIO ==================== -->
+<!-- ==================== SLIDE 18: EXERCÍCIO PRÁTICO ==================== -->
 <section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 <div class="slide-content">
-  <h2>Exercício: <span class="green">Galeria de Fotos</span></h2>
-  <p style="margin-bottom: 20px;">Crie uma galeria de fotos usando HTML5 e Emmet.</p>
+  <h2>Exercício: <span class="green">Prática</span></h2>
+  <p style="margin-bottom: 16px;">Crie uma página HTML com os seguintes elementos:</p>
   <ul>
-    <li class="fragment fade-up"><strong style="color: #fff;">Estrutura semântica:</strong> header, main, section, figure, figcaption</li>
-    <li class="fragment fade-up"><strong style="color: #fff;">Use Emmet:</strong> Gere o HTML com abreviações</li>
-    <li class="fragment fade-up"><strong style="color: #fff;">Mínimo 6 fotos:</strong> Use img com src placeholder (picsum.photos)</li>
-    <li class="fragment fade-up"><strong style="color: #fff;">Título e descrição</strong> para cada foto</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Header:</strong> Título do site com atributo <code style="color: #f97316;">id</code></li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Tabela:</strong> Lista de alunos com nome, nota e status</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Lista ordenada:</strong> Passos para fazer cadastro</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Lista não ordenada:</strong> Recursos do curso</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Description List:</strong> Glossário com 3 termos</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Atributos:</strong> Use classes e estilos inline</li>
   </ul>
   <div class="divider fragment fade-up"></div>
   <p class="fragment fade-up" style="font-size: 24px !important;">
-    <strong style="color: #f97316;">Entregável:</strong> Dois arquivos no seu GitHub (repositório público):<br>
-    &nbsp;&nbsp;1. <code style="color: #22c55e;">galeria.html</code> — HTML da galeria<br>
-    &nbsp;&nbsp;2. <code style="color: #22c55e;">emmet-commands.txt</code> — Comandos Emmet utilizados
-  </p>
-  <p class="fragment fade-up" style="font-size: 22px !important; margin-top: 12px;">
-    Exemplo de URL: <code style="color: #38bdf8;">github.com/usuario/galeria-fotos</code>
+    <strong style="color: #f97316;">Entregável:</strong> Um arquivo <code style="color: #22c55e;">index.html</code> no seu GitHub<br>
+    Exemplo: <code style="color: #38bdf8;">github.com/usuario/exercicio-aula3</code>
   </p>
 </div>
 </div></script></section>
 
-<!-- ==================== SLIDE 24: DÚVIDAS ==================== -->
+<!-- ==================== SLIDE 19: DÚVIDAS ==================== -->
 <section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -767,7 +621,7 @@
 <div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
   <div class="fragment fade-up" style="max-width: 900px;">
     <h2 class="green" style="border-left: none !important; padding-left: 0 !important; font-size: 44px !important; font-style: italic; line-height: 1.4 !important;">
-      "Quem conhece atalhos, ganha horas. Quem conhece Emmet, ganha uma fábrica inteira."
+      "Websites promovem você 24 horas por dia, 7 dias por semana. Nenhum funcionário fará isso." — Paul Cookson
     </h2>
   </div>
   <div class="fragment fade-up" style="margin-top: 50px;">

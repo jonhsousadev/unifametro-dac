@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Prática: Emmet - Produtividade no HTML</title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="css/mattropolis.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+<!-- ==================== SLIDE 1: CAPA ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+.reveal .slides section {
+  padding: 0 !important;
+  background-color: #020617 !important;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.reveal .slides section.present { opacity: 1 !important; }
+.reveal .slides section:not(.present) { opacity: 0 !important; }
+
+.slide-content {
+  width: 100%;
+  height: 100%;
+  padding: 40px 60px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #0f172a;
+}
+
+.reveal h1 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  line-height: 1.1 !important;
+  font-size: 91px !important;
+}
+
+.reveal h2 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  border-left: 10px solid #22c55e;
+  padding-left: 30px !important;
+  margin-bottom: 20px !important;
+  font-size: 62px !important;
+}
+
+.reveal h3 {
+  font-family: 'Urbanist', sans-serif !important;
+  font-weight: 700 !important;
+  color: #f97316 !important;
+  font-size: 41px !important;
+  margin-bottom: 16px !important;
+}
+
+.reveal p, .reveal li {
+  font-family: 'Urbanist', sans-serif !important;
+  color: #94a3b8 !important;
+  font-size: 32px !important;
+  line-height: 1.5 !important;
+}
+
+.reveal ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.reveal ul li::before {
+  content: '▸ ' !important;
+  color: #22c55e !important;
+  font-weight: bold !important;
+}
+
+.green { color: #22c55e !important; }
+.orange { color: #f97316 !important; }
+.mono { font-family: 'JetBrains Mono', monospace !important; text-transform: uppercase; letter-spacing: 3px; }
+.divider { width: 100%; height: 1px; background: #1e293b; margin: 20px 0; }
+
+.slide-content::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  left: 60px;
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, #22c55e, #f97316);
+}
+
+.reveal .fragment {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal .fragment.visible { opacity: 1; }
+.reveal .fragment.fade-up { transform: translateY(15px); }
+.reveal .fragment.visible.fade-up { transform: translateY(0); }
+
+.quiz-option {
+  background: #0f172a !important;
+  border: 2px solid #1e293b !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+  margin-bottom: 8px !important;
+  transition: all 0.3s ease !important;
+}
+.quiz-option p { font-size: 23px !important; margin: 0 !important; }
+.quiz-option.correct { border-color: #22c55e !important; background: rgba(34, 197, 94, 0.15) !important; }
+.quiz-option.incorrect { border-color: #ef4444 !important; background: rgba(239, 68, 68, 0.15) !important; }
+
+.code-block {
+  background: #0f172a !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 18px !important;
+  color: #e2e8f0 !important;
+  line-height: 1.6 !important;
+  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+.code-block .keyword { color: #f97316 !important; }
+.code-block .string { color: #22c55e !important; }
+.code-block .comment { color: #475569 !important; }
+.code-block .function { color: #38bdf8 !important; }
+</style>
+
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="mono orange" style="font-size: 27px; margin-bottom: 24px;">PRÁTICA</div>
+  <h1 style="font-size: 52px !important;">EMMET: <span class="green" style="font-size: 68px !important;">PRODUTIVIDADE</span></h1>
+  <div class="mono" style="font-size: 20px; color: #64748b; margin-top: 10px;">ATALHOS PARA HTML</div>
+  <div style="height: 2px; width: 100px; background: linear-gradient(90deg, #22c55e, #f97316); margin: 40px 0;"></div>
+  <div class="mono" style="font-size: 18px; color: #475569;">UNIFAMETRO | PROF. JONH SOUSA</div>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 2: O QUE É EMMET ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <h2 style="border-left: none !important; padding-left: 0 !important;">O Que É <span class="green">Emmet</span>?</h2>
+  <p style="max-width: 700px; margin: 20px auto; font-size: 30px !important;">
+    A <strong style="color: #fff;">mágica</strong> para escrever HTML sem digitar tudo.
+  </p>
+  <div class="divider" style="width: 200px; margin: 30px auto;"></div>
+  <p style="font-size: 26px !important; color: #94a3b8 !important;">
+    Abbreviation → <strong style="color: #22c55e;">Tab</strong> → HTML completo
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 3: ONDE ESTÁ ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Onde Está o <span class="green">Emmet</span>?</h2>
+  <p style="margin-bottom: 20px;">Já vem pronto na maioria dos editores modernos!</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">VS Code:</strong> Integrado por padrão — não precisa instalar nada</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Sublime Text:</strong> Instale o plugin "Emmet" via Package Control</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Zed:</strong> Suporte nativo ao Emmet — funciona direto do box</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">Neovim / Vim:</strong> Plugin "emmet-vim" disponível</li>
+    <li class="fragment fade-up"><strong style="color: #fff;">WebStorm:</strong> Suporte integrado</li>
+  </ul>
+  <div class="divider fragment fade-up"></div>
+  <p class="fragment fade-up" style="font-size: 24px !important;">
+    <strong style="color: #f97316;">Dica:</strong> No VS Code, se não estiver funcionando, busque por "Emmet" nas extensões.
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 4: SINTAXE BÁSICA ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Sintaxe Básica</span></h2>
+  <p style="margin-bottom: 16px;">A abreviação mais simples — só o nome da tag.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 22px !important;">
+        <span class="function">div</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 22px !important;">
+        <span class="keyword">&lt;div&gt;&lt;/div&gt;</span>
+      </div>
+    </div>
+  </div>
+  <ul style="margin-top: 20px;">
+    <li class="fragment fade-up"><code style="color: #f97316;">p</code> → <code style="color: #22c55e;">&lt;p&gt;&lt;/p&gt;</code></li>
+    <li class="fragment fade-up"><code style="color: #f97316;">h1</code> → <code style="color: #22c55e;">&lt;h1&gt;&lt;/h1&gt;</code></li>
+    <li class="fragment fade-up"><code style="color: #f97316;">section</code> → <code style="color: #22c55e;">&lt;section&gt;&lt;/section&gt;</code></li>
+  </ul>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 5: FILHOS ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Filhos</span></h2>
+  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">&gt;</code> para aninhar elementos.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 20px !important;">
+        <span class="function">nav&gt;ul&gt;li</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 16px !important;">
+        <span class="keyword">&lt;nav&gt;</span><br>
+        &nbsp;&nbsp;<span class="keyword">&lt;ul&gt;</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
+        &nbsp;&nbsp;<span class="keyword">&lt;/ul&gt;</span><br>
+        <span class="keyword">&lt;/nav&gt;</span>
+      </div>
+    </div>
+  </div>
+  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
+    <code style="color: #f97316;">div&gt;header&gt;h1</code> cria uma div com header dentro e h1 dentro do header.
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 6: IRMÃOS ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Irmãos</span></h2>
+  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">+</code> para elementos no mesmo nível.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 20px !important;">
+        <span class="function">header+main+footer</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 16px !important;">
+        <span class="keyword">&lt;header&gt;&lt;/header&gt;</span><br>
+        <span class="keyword">&lt;main&gt;&lt;/main&gt;</span><br>
+        <span class="keyword">&lt;footer&gt;&lt;/footer&gt;</span>
+      </div>
+    </div>
+  </div>
+  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
+    <code style="color: #f97316;">h1+h2+p</code> cria os três elementos lado a lado.
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 7: CLASSES E IDs ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Classes e IDs</span></h2>
+  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">.</code> para class e <code style="color: #f97316;">#</code> para id.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 18px !important;">
+        <span class="function">div.card</span><br>
+        <span class="function">div#principal</span><br>
+        <span class="function">p.texto.verde</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 16px !important;">
+        <span class="keyword">&lt;div</span> <span class="function">class</span>=<span class="string">"card"</span><span class="keyword">&gt;&lt;/div&gt;</span><br>
+        <span class="keyword">&lt;div</span> <span class="function">id</span>=<span class="string">"principal"</span><span class="keyword">&gt;&lt;/div&gt;</span><br>
+        <span class="keyword">&lt;p</span> <span class="function">class</span>=<span class="string">"texto verde"</span><span class="keyword">&gt;&lt;/p&gt;</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 8: TEXTO CUSTOMIZADO ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Texto Customizado</span></h2>
+  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">{}</code> para adicionar texto.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 18px !important;">
+        <span class="function">h1{Olá Mundo}</span><br>
+        <span class="function">a{Clique aqui}</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 16px !important;">
+        <span class="keyword">&lt;h1&gt;</span>Olá Mundo<span class="keyword">&lt;/h1&gt;</span><br>
+        <span class="keyword">&lt;a&gt;</span>Clique aqui<span class="keyword">&lt;/a&gt;</span>
+      </div>
+    </div>
+  </div>
+  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
+    <code style="color: #f97316;">p&gt;strong{Importante}</code> → <code style="color: #22c55e;">&lt;p&gt;&lt;strong&gt;Importante&lt;/strong&gt;&lt;/p&gt;</code>
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 9: MULTIPLICAÇÃO ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Multiplicação</span></h2>
+  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">*</code> para repetir elementos.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 18px !important;">
+        <span class="function">li*5</span><br>
+        <span class="function">ul&gt;li*3</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 14px !important;">
+        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
+        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
+        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
+        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span><br>
+        <span class="keyword">&lt;li&gt;&lt;/li&gt;</span>
+      </div>
+    </div>
+  </div>
+  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
+    <code style="color: #f97316;">ul&gt;li*3{Item}</code> cria ul com 3 li, cada um com "Item".
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 10: NUMERAÇÃO ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Numeração</span></h2>
+  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">$</code> para numeração automática.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 18px !important;">
+        <span class="function">li.item$*3</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 14px !important;">
+        <span class="keyword">&lt;li</span> <span class="function">class</span>=<span class="string">"item1"</span><span class="keyword">&gt;&lt;/li&gt;</span><br>
+        <span class="keyword">&lt;li</span> <span class="function">class</span>=<span class="string">"item2"</span><span class="keyword">&gt;&lt;/li&gt;</span><br>
+        <span class="keyword">&lt;li</span> <span class="function">class</span>=<span class="string">"item3"</span><span class="keyword">&gt;&lt;/li&gt;</span>
+      </div>
+    </div>
+  </div>
+  <p class="fragment fade-up" style="font-size: 24px !important; margin-top: 16px;">
+    <code style="color: #f97316;">li.item$$*3</code> → item01, item02, item03 (dois dígitos).
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 11: ATRIBUTOS ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Atributos</span></h2>
+  <p style="margin-bottom: 16px;">Use <code style="color: #f97316;">[]</code> para definir atributos.</p>
+  <div style="display: flex; gap: 24px; width: 100%;">
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Abreviação</h3>
+      <div class="code-block" style="font-size: 16px !important;">
+        <span class="function">a[href=google.com]</span><br>
+        <span class="function">img[src=foto.jpg]</span><br>
+        <span class="function">input[type=email]</span>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="font-size: 24px !important;">Resultado</h3>
+      <div class="code-block" style="font-size: 14px !important;">
+        <span class="keyword">&lt;a</span> <span class="function">href</span>=<span class="string">"google.com"</span><span class="keyword">&gt;&lt;/a&gt;</span><br>
+        <span class="keyword">&lt;img</span> <span class="function">src</span>=<span class="string">"foto.jpg"</span> <span class="keyword">/&gt;</span><br>
+        <span class="keyword">&lt;input</span> <span class="function">type</span>=<span class="string">"email"</span> <span class="keyword">/&gt;</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 12: EXEMPLOS PRÁTICOS ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Emmet: <span class="green">Exemplos Práticos</span></h2>
+  <p style="margin-bottom: 16px;">Combinações poderosas no dia a dia.</p>
+  <div class="code-block" style="font-size: 16px !important;">
+    <span class="comment">!-- Estrutura semântica --</span><br>
+    <span class="function">header&gt;nav&gt;ul&gt;li*3&gt;a[href=#]</span><br><br>
+    <span class="comment">!-- Card com imagem --</span><br>
+    <span class="function">div.card&gt;img[src=photo.jpg]+h3{Titulo}+p{Descricao}</span><br><br>
+    <span class="comment">!-- Formulário completo --</span><br>
+    <span class="function">form&gt;label{Nome}+input[type=text]+label{Email}+input[type=email]+button{Enviar}</span><br><br>
+    <span class="comment">!-- Tabela --</span><br>
+    <span class="function">table&gt;thead&gt;tr&gt;th*3{Coluna $}+tbody&gt;tr*3&gt;td*3{Dado}</span>
+  </div>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 13: EXERCÍCIO ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content">
+  <h2>Exercício: <span class="green">Prática com Emmet</span></h2>
+  <p style="margin-bottom: 16px;">Use Emmet para criar as seguintes estruturas:</p>
+  <ul>
+    <li class="fragment fade-up"><strong style="color: #fff;">1. Header:</strong> <code style="color: #f97316;">header&gt;nav&gt;ul&gt;li*4&gt;a{Link $}</code></li>
+    <li class="fragment fade-up"><strong style="color: #fff;">2. Card:</strong> <code style="color: #f97316;">div.card&gt;img[src=picsum.photos/200]+h2{Título}+p{Descrição}</code></li>
+    <li class="fragment fade-up"><strong style="color: #fff;">3. Formulário:</strong> <code style="color: #f97316;">form&gt;input[type=text]+input[type=email]+button{Enviar}</code></li>
+    <li class="fragment fade-up"><strong style="color: #fff;">4. Lista:</strong> <code style="color: #f97316;">ul&gt;li.item$*5{Item $}</code></li>
+    <li class="fragment fade-up"><strong style="color: #fff;">5. Tabela:</strong> <code style="color: #f97316;">table&gt;thead&gt;tr&gt;th*3{Col $}+tbody&gt;tr*3&gt;td*3{Dado}</code></li>
+  </ul>
+  <div class="divider fragment fade-up"></div>
+  <p class="fragment fade-up" style="font-size: 24px !important;">
+    <strong style="color: #f97316;">Dica:</strong> Digite a abreviação e pressione <code style="color: #22c55e;">Tab</code> no VS Code!
+  </p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 14: DÚVIDAS ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <h2 style="border-left: none !important; padding-left: 0 !important;">Dúvidas ou <span>Perguntas</span>?</h2>
+  <p style="max-width: 700px; margin: 30px auto; font-size: 32px !important;">Sinta-se à vontade para perguntar!</p>
+  <div class="divider" style="width: 200px; margin: 30px auto;"></div>
+  <p><strong style="color: #fff;">E-mail:</strong> <code>jonh.sousa@professor.unifametro.edu.br</code></p>
+  <p><strong style="color: #fff;">Site:</strong> <code>jonhsousa.com.br</code></p>
+</div>
+</div></script></section>
+
+<!-- ==================== SLIDE 15: ENCERRAMENTO ==================== -->
+<section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="slide-content" style="align-items: center !important; text-align: center !important; justify-content: center !important;">
+  <div class="fragment fade-up" style="max-width: 900px;">
+    <h2 class="green" style="border-left: none !important; padding-left: 0 !important; font-size: 44px !important; font-style: italic; line-height: 1.4 !important;">
+      "Não é sobre ter tempo, é sobre criar tempo. Use Emmet e ganhe horas de produtividade."
+    </h2>
+  </div>
+  <div class="fragment fade-up" style="margin-top: 50px;">
+    <h1 style="font-size: 48px !important; letter-spacing: 5px;">BORA <span class="green">PRA CIMA</span>!</h1>
+  </div>
+</div>
+</div></script></section>
+
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	  }
+
+	  var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	  var isLight = isLight(bgColor);
+
+	  if(isLight){
+		document.body.classList.add('has-light-background');
+	  } else {
+		document.body.classList.add('has-dark-background');
+	  }
+
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default',
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+        ],
+    	allottedTime: 120 * 1000,
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+		customcontrols: {
+			controls: []
+		},
+      };
+
+      var queryOptions = Reveal().getQueryHash() || {};
+      var options = extend(defaultOptions, {"width":960,"height":700,"margin":0.04,"controls":true,"progress":true,"slideNumber":true,"transition":"slide","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
