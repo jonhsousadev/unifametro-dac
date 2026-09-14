@@ -523,8 +523,9 @@
           const group = document.createElement('div');
           group.className = 'aula-group';
 
-          const aulaUrl = `${aula.pasta}/index.html`;
+          const aulaUrl = `aula.html?pasta=${aula.pasta}`;
           const praticaUrl = `${aula.pasta}/${aula.pratica.arquivo}`;
+          const pdfUrl = `${aula.pasta}/index.html?print-pdf`;
 
           group.innerHTML = `
             <div class="aula-card">
@@ -539,7 +540,7 @@
               <button class="qr-btn" onclick="abrirModal('${aulaUrl}', '${aula.nome}')" title="QR Code">
                 <i class="fas fa-qrcode"></i>
               </button>
-              <a href="${aulaUrl}?print-pdf" target="_blank" class="download-btn" title="Baixar PDF">
+              <a href="${pdfUrl}" target="_blank" class="download-btn" title="Baixar PDF">
                 <i class="fas fa-file-pdf"></i>
               </a>
             </div>
@@ -559,7 +560,8 @@
         } else {
           const card = document.createElement('div');
           card.className = 'aula-card';
-          const aulaUrl = `${aula.pasta}/index.html`;
+          const aulaUrl = `aula.html?pasta=${aula.pasta}`;
+          const pdfUrl = `${aula.pasta}/index.html?print-pdf`;
           card.innerHTML = `
             <a href="${aulaUrl}" class="aula-link">
               <div class="number">${num}</div>
@@ -572,7 +574,7 @@
             <button class="qr-btn" onclick="abrirModal('${aulaUrl}', '${aula.nome}')" title="QR Code">
               <i class="fas fa-qrcode"></i>
             </button>
-            <a href="${aulaUrl}?print-pdf" target="_blank" class="download-btn" title="Baixar PDF">
+            <a href="${pdfUrl}" target="_blank" class="download-btn" title="Baixar PDF">
               <i class="fas fa-file-pdf"></i>
             </a>
           `;

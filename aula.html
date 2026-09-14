@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aula</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #020617;
+      font-family: 'Urbanist', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      height: 56px;
+      min-height: 56px;
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 0 16px;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .topbar .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-family: 'Urbanist', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .topbar .back-btn:hover {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    .topbar .back-btn i {
+      font-size: 14px;
+    }
+
+    .topbar .course-name {
+      flex: 1;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .topbar .course-name span {
+      color: #fff;
+    }
+
+    .topbar .aula-title {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .topbar .aula-title .aula-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      margin-right: 6px;
+    }
+
+    .topbar .actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .topbar .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .topbar .action-btn:hover {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    .topbar .action-btn[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #1e293b;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    /* ── Content (iframe) ── */
+    .content {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #020617;
+    }
+
+    /* ── Sidebar Overlay ── */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+    }
+
+    .sidebar-overlay.open {
+      display: block;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 320px;
+      height: 100%;
+      background: #0f172a;
+      border-right: 1px solid #1e293b;
+      z-index: 300;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #1e293b;
+      min-height: 56px;
+    }
+
+    .sidebar-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .sidebar-header .close-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-header .close-btn:hover {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    .sidebar-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+      scrollbar-width: thin;
+      scrollbar-color: #334155 transparent;
+    }
+
+    .sidebar-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar-list::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-item:hover {
+      background: #1e293b;
+    }
+
+    .sidebar-item.active {
+      background: rgba(249, 115, 22, 0.08);
+      border-left-color: var(--cor, #f97316);
+    }
+
+    .sidebar-item .item-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #475569;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .sidebar-item.active .item-num {
+      color: var(--cor, #f97316);
+    }
+
+    .sidebar-item .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sidebar-item .item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-item.active .item-name {
+      color: #fff;
+    }
+
+    .sidebar-item .item-desc {
+      font-size: 12px;
+      color: #475569;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .sidebar-item.active .item-desc {
+      color: #64748b;
+    }
+
+    /* ── Loading ── */
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #475569;
+    }
+
+    .loading i {
+      font-size: 32px;
+      color: var(--cor, #f97316);
+      margin-bottom: 12px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .loading p {
+      font-size: 14px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .topbar .course-name { display: none; }
+      .topbar .aula-title { font-size: 14px; }
+      .sidebar { width: 280px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <button class="back-btn" id="back-btn" title="Voltar ao início">
+      <i class="fas fa-arrow-left"></i>
+      <span>Início</span>
+    </button>
+    <div class="course-name" id="course-name"></div>
+    <div class="aula-title" id="aula-title"></div>
+    <div class="actions">
+      <button class="action-btn" id="pdf-btn" title="Baixar PDF">
+        <i class="fas fa-file-pdf"></i>
+      </button>
+      <button class="action-btn" id="menu-btn" title="Navegação">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="loading" id="loading">
+      <i class="fas fa-spinner"></i>
+      <p>Carregando aula...</p>
+    </div>
+    <iframe id="aula-iframe" src="about:blank"></iframe>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Aulas</h3>
+      <button class="close-btn" id="sidebar-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="sidebar-list" id="sidebar-list"></div>
+  </div>
+
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const pasta = params.get('pasta');
+      const extraParams = params.toString().replace(/pasta=[^&]*&?/, '').replace(/&$/, '');
+
+      if (!pasta) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      const iframe = document.getElementById('aula-iframe');
+      const loading = document.getElementById('loading');
+      const sidebarList = document.getElementById('sidebar-list');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+      let aulasData = [];
+      let currentPasta = pasta;
+
+      // ── Load data.json ──
+      async function init() {
+        try {
+          const res = await fetch('data.json');
+          const data = await res.json();
+          const { curso, aulas } = data;
+
+          document.documentElement.style.setProperty('--cor', curso.cor);
+          document.getElementById('course-name').innerHTML = `${curso.faculdade} <span>| ${curso.nome}</span>`;
+          document.title = `${curso.nome} - UNIFAMETRO`;
+
+          aulasData = aulas;
+          buildSidebar(aulas);
+          selectAula(pasta, false);
+        } catch (e) {
+          console.error('Erro ao carregar data.json:', e);
+        }
+      }
+
+      // ── Build sidebar ──
+      function buildSidebar(aulas) {
+        sidebarList.innerHTML = '';
+        aulas.forEach((aula, i) => {
+          const num = String(i).padStart(2, '0');
+          const item = document.createElement('div');
+          item.className = 'sidebar-item';
+          item.dataset.pasta = aula.pasta;
+          item.innerHTML = `
+            <div class="item-num">${num}</div>
+            <div class="item-info">
+              <div class="item-name">${aula.nome}</div>
+              <div class="item-desc">${aula.descricao}</div>
+            </div>
+          `;
+          item.addEventListener('click', () => {
+            selectAula(aula.pasta, true);
+            closeSidebar();
+          });
+          sidebarList.appendChild(item);
+        });
+      }
+
+      // ── Select aula ──
+      function selectAula(pasta, pushState) {
+        currentPasta = pasta;
+        const aula = aulasData.find(a => a.pasta === pasta);
+        const index = aulasData.indexOf(aula);
+        const num = String(index).padStart(2, '0');
+
+        document.getElementById('aula-title').innerHTML = aula
+          ? `<span class="aula-num">Aula ${num}</span>${aula.nome}`
+          : '';
+
+        // Update PDF link
+        const pdfUrl = extraParams
+          ? `${pasta}/index.html?print-pdf&${extraParams}`
+          : `${pasta}/index.html?print-pdf`;
+        document.getElementById('pdf-btn').onclick = () => window.open(pdfUrl, '_blank');
+
+        // Update back button
+        document.getElementById('back-btn').onclick = () => {
+          window.location.href = 'index.html';
+        };
+
+        // Highlight sidebar item
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+          item.classList.toggle('active', item.dataset.pasta === pasta);
+        });
+
+        // Scroll active item into view
+        const activeItem = sidebarList.querySelector('.active');
+        if (activeItem) {
+          activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+
+        // Load iframe
+        const iframeUrl = extraParams
+          ? `${pasta}/index.html?${extraParams}`
+          : `${pasta}/index.html`;
+        loading.style.display = 'block';
+        iframe.src = iframeUrl;
+
+        // Update URL
+        const newUrl = extraParams
+          ? `aula.html?pasta=${pasta}&${extraParams}`
+          : `aula.html?pasta=${pasta}`;
+        if (pushState) {
+          history.pushState({ pasta }, '', newUrl);
+        }
+      }
+
+      // ── Sidebar toggle ──
+      function openSidebar() {
+        sidebar.classList.add('open');
+        sidebarOverlay.classList.add('open');
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('open');
+      }
+
+      document.getElementById('menu-btn').addEventListener('click', openSidebar);
+      document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
+      sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // ── Browser back/forward ──
+      window.addEventListener('popstate', (e) => {
+        if (e.state && e.state.pasta) {
+          selectAula(e.state.pasta, false);
+        } else {
+          const newParams = new URLSearchParams(window.location.search);
+          const newPasta = newParams.get('pasta');
+          if (newPasta) selectAula(newPasta, false);
+        }
+      });
+
+      // ── Iframe loaded ──
+      iframe.addEventListener('load', () => {
+        if (iframe.src !== 'about:blank') {
+          loading.style.display = 'none';
+        }
+      });
+
+      // ── Keyboard shortcuts ──
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSidebar();
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+          const idx = aulasData.findIndex(a => a.pasta === currentPasta);
+          const nextIdx = e.key === 'ArrowRight'
+            ? Math.min(idx + 1, aulasData.length - 1)
+            : Math.max(idx - 1, 0);
+          if (nextIdx !== idx) selectAula(aulasData[nextIdx].pasta, true);
+        }
+      });
+
+      init();
+    })();
+  </script>
+</body>
+</html>
